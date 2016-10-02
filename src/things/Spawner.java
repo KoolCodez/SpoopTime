@@ -20,7 +20,7 @@ public class Spawner extends Entity {
 			@Override
 			public void run() {
 				while (health > 0) {
-					if (Math.random() * 1000 * Core.difficulty < 10) {
+					if (Math.random() * 10000 < Core.difficulty) {
 						spawn();
 					}
 					synchronized (Core.display) {
