@@ -1,27 +1,67 @@
 package spoopTime;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.awt.TexturePaint;
-import java.awt.geom.Ellipse2D;
-import java.awt.image.BufferedImage;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import things.Thing;
 
 public class DisplayPanel extends JPanel {
-	
+	private static final int BUTTON_WIDTH = 150;
+	private static final int BUTTON_HEIGHT = 50;
+	private boolean gameOverMode = false;
+	private JButton restartButton;
 	
 	@Override
 	public void paintComponent(Graphics g) {
-		drawBackGround(g);
-		drawThings(g);
-		drawDarkness(g);
+		if (gameOverMode) {
+			g.setColor(Color.black);
+			g.fillRect(0, 0, 1000, 1000);
+			g.setColor(Color.white);
+			g.setFont(new Font(Font.SERIF, Font.PLAIN, 100));
+			g.drawString("GAME OVER", 200, 300);
+			g.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
+			g.drawString("Score: ", 400, 400);
+		} else {
+			drawBackGround(g);
+			drawThings(g);
+			drawDarkness(g);
+		}
+	}
+	
+	public void gameOver() {
+		gameOverMode = true;
+		JButton endButton = new JButton("QUIT");
+		restartButton = new JButton("RESTART");
+		JPanel thisPanel = this;
+		restartButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameOverMode = false;
+				Core.reset();
+				thisPanel.remove(endButton);
+				thisPanel.remove(restartButton);
+			}
+		});
+		restartButton.setBounds(425, 475, BUTTON_WIDTH, BUTTON_HEIGHT);
+		add(restartButton);
+		
+		
+		endButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Core.frame.setVisible(false);
+				System.exit(1);
+			}
+		});
+		endButton.setBounds(425, 525, BUTTON_WIDTH, BUTTON_HEIGHT);
+		add(endButton);
 	}
 	
 	private void drawBackGround(Graphics g) {
@@ -42,7 +82,8 @@ public class DisplayPanel extends JPanel {
 	}
 	
 	private void drawDarkness(Graphics g) {
-		g.setColor(Color.black);
+		Color c = new Color(0, 0, 0, (int) (Core.difficulty*2) + 55);
+		g.setColor(c);
 		int points = 6;
 		int[] xPoints = new int[points];
 		int[] yPoints = new int[points];

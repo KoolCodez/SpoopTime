@@ -29,7 +29,7 @@ public class TextureUtil {
 	}
 	
 	public static BufferedImage loadImage(String pathFromTextures, double width, double height, boolean scale) {
-		BufferedImage i;
+		Image i;
 		try {
 			String name = "/Textures/" + pathFromTextures;
 			URL url = TextureUtil.class.getResource(name);
@@ -42,18 +42,11 @@ public class TextureUtil {
 			width *= Display.SCALE;
 			height *= Display.SCALE;
 		}
-		BufferedImage before = i;
-		int w = before.getWidth();
-		int h = before.getHeight();
-		BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-		AffineTransform at = new AffineTransform();
-		at.scale(Display.SCALE, Display.SCALE);
-		AffineTransformOp scaleOp = 
-		   new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-		after = scaleOp.filter(before, after);
-		
-		//i = (BufferedImage) i.getScaledInstance((int) (width), (int) (height), Image.SCALE_SMOOTH);
-		return i;
+		i = i.getScaledInstance((int) width, (int) height, Image.SCALE_SMOOTH);
+		BufferedImage newI = new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_ARGB);
+		Graphics g = newI.getGraphics();
+		g.drawImage(i, 0, 0, null);
+		return newI;
 	}
 	
 	public static Image rotate(Image image, int degrees, Ellipse2D outline) {

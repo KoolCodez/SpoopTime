@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 public class Display extends Thread {
 	public static Point2D currentLoc = new Point2D.Double(0, 0);
 	
-	private static JPanel panel;
+	private static DisplayPanel panel;
 	public static final double SCALE = 1;
 	public static final double REFRESH_RATE = 60;
 	public static final long MILLISECONDS_TO_SLEEP = (long) (1000/REFRESH_RATE);
@@ -25,7 +25,7 @@ public class Display extends Thread {
 	
 	@Override
 	public void run() {
-		while (true) {
+		while (Core.gamingMode) {
 			synchronized (this) {
 				this.notifyAll();
 			}
@@ -43,5 +43,6 @@ public class Display extends Thread {
 				e.printStackTrace();
 			}
 		}
+		panel.gameOver();
 	}
 }

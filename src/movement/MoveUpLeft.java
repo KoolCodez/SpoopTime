@@ -9,7 +9,7 @@ public class MoveUpLeft extends Thread{
 	public void run() {
 		try {
 			while (MovementController.movingLeft && MovementController.movingUp) {
-				Control.player.move(Entity.Move.UPLEFT);
+				Control.player.move(-1, -1);
 				synchronized (Core.display) {
 					Core.display.wait();
 				}

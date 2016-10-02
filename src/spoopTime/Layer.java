@@ -13,6 +13,8 @@ public class Layer {
 	public boolean legalMove(Ellipse2D outline, Thing thing) {
 		for (Thing t: things) {
 			if (thing != t && t.checkCollision(outline)) {
+				thing.collide(t);
+				t.collide(thing);
 				return false;
 			}
 		}

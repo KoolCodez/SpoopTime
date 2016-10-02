@@ -10,7 +10,7 @@ public class MoveUp extends Thread {
 		try {
 			while (MovementController.movingUp) {
 				if (!MovementController.movingRight && !MovementController.movingLeft) {
-					Control.player.move(Entity.Move.UP);
+					Control.player.move(0, -1);
 				}					
 				synchronized (Core.display) {
 					Core.display.wait();

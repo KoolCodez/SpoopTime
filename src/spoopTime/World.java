@@ -35,10 +35,33 @@ public class World {
 	}
 	
 	public static void createGrounds(int startingX, int startingY, int size) {
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
+		int newSize = size / Grass.SIZE;
+		for (int i = 0; i < newSize; i++) {
+			for (int j = 0; j < newSize; j++) {
 				layers[0].things.add(new Grass(startingX + i*Grass.SIZE, startingY + j*Grass.SIZE));
 			}
+		}
+	}
+	
+	public static void createWalls(int startingX, int startingY, int size) {
+		Thing leftWall = new Thing(startingX, startingY, 20, size/1.4, "BackGround.jpg");
+		addLayerOne(leftWall);
+		Thing upWall = new Thing(startingX, startingY, size/1.4, 20, "BackGround.jpg");
+		addLayerOne(upWall);
+		Thing rightWall = new Thing(startingX + size, startingY, 20, size/1.4, "BackGround.jpg");
+		addLayerOne(rightWall);
+		Thing downWall = new Thing(startingX, startingY + size, size/1.4, 20, "BackGround.jpg");
+		addLayerOne(downWall);
+	}
+	
+	public static void destroy(Thing thing) {
+		layers[thing.layer].things.remove(thing);
+	}
+	
+	public static void resetWorld() {
+		layers = new Layer[3];
+		for (int i = 0; i < 3; i++) {
+			layers[i] = new Layer();
 		}
 	}
 }

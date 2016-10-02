@@ -32,6 +32,9 @@ public class Thing {
 		return outline;
 	}
 	
+	public void collide(Thing thing) {
+	}
+	
 	public void changePos(double deltaX, double deltaY) {
 		outline = new Ellipse2D.Double(outline.getX() + deltaX, outline.getY() + deltaY, outline.getWidth(), outline.getHeight());
 	}

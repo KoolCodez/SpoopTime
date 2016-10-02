@@ -8,7 +8,7 @@ public class MoveDownLeft extends Thread{
 	public void run() {
 		try {
 			while (MovementController.movingLeft && MovementController.movingDown) {
-				Control.player.move(Entity.Move.DOWNLEFT);
+				Control.player.move(-1, 1);
 				synchronized (Core.display) {
 					Core.display.wait();
 				}
