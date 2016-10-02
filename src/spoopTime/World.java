@@ -2,6 +2,7 @@ package spoopTime;
 
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import things.Grass;
@@ -55,7 +56,13 @@ public class World {
 	}
 	
 	public static void destroy(Thing thing) {
-		layers[thing.layer].things.remove(thing);
+		
+		for (Iterator<Thing> iterator = layers[thing.layer].things.iterator(); iterator.hasNext(); ) {
+			if (iterator.next().equals(thing)) {
+				iterator.remove();
+			}
+		}
+		//layers[thing.layer].things.remove(thing);
 	}
 	
 	public static void resetWorld() {
