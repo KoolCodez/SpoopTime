@@ -13,8 +13,10 @@ import spoopTime.World;
 public class Projectile extends Thing {
 	double angle = 0;
 	double speed = 0;
-	public Projectile(double x, double y, double width, double height, String imagePath) {
+	public Thing shooter;
+	public Projectile(double x, double y, double width, double height, String imagePath, Thing shooter) {
 		super(x, y, width, height, imagePath);
+		this.shooter = shooter;
 		
 	}
 	
@@ -41,7 +43,13 @@ public class Projectile extends Thing {
 						}
 					}
 				}
-				World.destroy(p);
+				while (World.contains(p)) {
+					try {
+					World.destroy(p);
+					} catch(java.util.ConcurrentModificationException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		};
 		t.start();
@@ -53,15 +61,30 @@ public class Projectile extends Thing {
 		double theta = Math.toRadians(angle - 90);
 		deltaX = speed * Math.cos(theta);
 		deltaY = speed * Math.sin(theta);
-		if (World.legalMove(deltaX, deltaY, this)) {
-			changePos(deltaX, deltaY);
+		try {
+			if (World.legalMove(deltaX, deltaY, this)) {
+				changePos(deltaX, deltaY);
+			} else {
+				speed = -1;
+			}
+		} catch(java.util.ConcurrentModificationException e) {
+			e.printStackTrace();
+		} catch(NullPointerException e) {
+			e.printStackTrace();
 		}
+		
 	}
 	
 	@Override
 	public void collide(Thing thing) {
-		speed = 0;
-		if (thing instanceof Entity && thing != Control.player) {
+		if (thing instanceof Projectile) {
+			if (((Projectile) thing).shooter != this.shooter) {
+				speed = 0;
+			}
+		} else {
+			speed = 0;
+		}
+		if (thing instanceof Entity && thing != shooter) {
 			((Entity) thing).damage(5);
 		}
 	}

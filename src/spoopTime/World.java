@@ -65,6 +65,15 @@ public class World {
 		//layers[thing.layer].things.remove(thing);
 	}
 	
+	public static boolean contains(Thing thing) {
+		for (int i = 0; i < 3; i++) {
+			if (layers[i].things.contains(thing)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public static void resetWorld() {
 		layers = new Layer[3];
 		for (int i = 0; i < 3; i++) {

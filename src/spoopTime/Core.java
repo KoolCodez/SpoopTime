@@ -31,15 +31,18 @@ public class Core {
 	
 	private static void setupMode() {
 		setupMode = true;
+		System.out.println("beginning setup");
 		JFrame temp = new JFrame("Setup");
 		temp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		temp.setSize((int) (500 * Display.SCALE + 16), (int) (500 * Display.SCALE + 38));
 		temp.setVisible(true);
 		SetUpPanel panel = new SetUpPanel();
 		temp.add(panel);
+		//temp.pack();
 		while (setupMode) {
 			try {
 				Thread.sleep(Display.MILLISECONDS_TO_SLEEP);
+				//System.out.println(temp);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -47,6 +50,7 @@ public class Core {
 		}
 		System.out.println("boop");
 		temp.setVisible(false);
+		System.out.println("ending set up");
 	}
 	
 	private static void setUpFrame() {

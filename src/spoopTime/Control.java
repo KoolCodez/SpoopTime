@@ -71,7 +71,7 @@ public class Control {
 		double deltaX = player.getOutline().getWidth() * Math.cos(Math.toRadians(player.getAngle() - 90));
 		double deltaY = player.getOutline().getWidth() * Math.sin(Math.toRadians(player.getAngle() - 90));
 		point.setLocation(point.getX() + deltaX, point.getY() + deltaY);
-		FireBall f = new FireBall(point.getX(), point.getY());
+		FireBall f = new FireBall(point.getX(), point.getY(), Control.player);
 		World.addLayerOne(f);
 		f.startMoving(player.getAngle());
 	}
