@@ -9,7 +9,7 @@ public class Display extends Thread {
 	
 	private static DisplayPanel panel;
 	public static final double SCALE = 1;
-	public static final double REFRESH_RATE = 60;
+	public static final double REFRESH_RATE = 100;
 	public static final long MILLISECONDS_TO_SLEEP = (long) (1000/REFRESH_RATE);
 	
 	public Display() {

@@ -15,7 +15,7 @@ public class Entity extends Thing {
 	private static final double MAX_HEALTH = 10;
 	protected double health = 10;
 	private double angle = 0;
-	protected double speed = 10;
+	protected double speed = 600 / Display.REFRESH_RATE;
 	public static enum Move {LEFT, RIGHT, UP, DOWN, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT};
 	
 	public Entity(double x, double y, double width, double height, String imagePath) {

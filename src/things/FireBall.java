@@ -1,5 +1,7 @@
 package things;
 
+import spoopTime.Display;
+
 public class FireBall extends Projectile {
 
 	private static final double WIDTH = 50;
@@ -10,7 +12,7 @@ public class FireBall extends Projectile {
 	}
 	
 	public void startMoving(double direction) {
-		super.startMoving(direction, 20);
+		super.startMoving(direction, 1200/Display.REFRESH_RATE);
 	}
 
 }

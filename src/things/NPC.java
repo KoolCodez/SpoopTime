@@ -6,14 +6,15 @@ import java.awt.geom.Point2D;
 
 import spoopTime.Control;
 import spoopTime.Core;
+import spoopTime.Display;
 
 public class NPC extends Entity {
 	private Thread thread;
 	
-
+	private static final double SPEED_CONSTANT = 360 / Display.REFRESH_RATE;
 	public NPC(double x, double y, double width, double height, String imagePath) {
 		super(x, y, width, height, imagePath);
-		speed = 6;
+		speed = SPEED_CONSTANT;
 	}
 	
 	@Override

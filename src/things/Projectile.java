@@ -25,15 +25,16 @@ public class Projectile extends Thing {
 		this.speed = speed;
 		createThread();
 	}
-	
+	private static final double SPEED_DECREMENT = 6 / Display.REFRESH_RATE;
+	private static final double MIN_SPEED = 120 / Display.REFRESH_RATE;
 	private void createThread() {
 		Projectile p = this;
 		Thread t = new Thread() {
 			@Override
 			public void run() {
-				while (speed > 2) {
+				while (speed > MIN_SPEED) {
 					move();
-					speed -= .1;
+					speed -= SPEED_DECREMENT;
 					synchronized (Core.display) {
 						try {
 							Core.display.wait();

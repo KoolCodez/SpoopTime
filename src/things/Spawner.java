@@ -3,6 +3,7 @@ package things;
 import java.util.Random;
 
 import spoopTime.Core;
+import spoopTime.Display;
 import spoopTime.World;
 
 public class Spawner extends Entity {
@@ -14,13 +15,13 @@ public class Spawner extends Entity {
 		super(x, y, WIDTH, HEIGHT, "Skull.png");
 		createThread();
 	}
-
+	private static final double DIFFICULTY_CONSTANT = 600000 / Display.REFRESH_RATE;
 	private void createThread() {
 		t = new Thread() {
 			@Override
 			public void run() {
 				while (health > 0) {
-					if (Math.random() * 10000 < 10 + Core.difficulty) {
+					if (Math.random() * DIFFICULTY_CONSTANT < 10 + Core.difficulty) {
 						spawn();
 					}
 					synchronized (Core.display) {
