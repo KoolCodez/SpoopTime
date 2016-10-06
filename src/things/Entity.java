@@ -12,10 +12,10 @@ import spoopTime.TextureUtil;
 import spoopTime.World;
 
 public class Entity extends Thing {
-	private static final double MAX_HEALTH = 10;
+	private static final double MAX_HEALTH = 5;
 	protected double health = 10;
 	private double angle = 0;
-	protected double speed = 600 / Display.REFRESH_RATE;
+	protected double speed = 10;
 	public static enum Move {LEFT, RIGHT, UP, DOWN, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT};
 	
 	public Entity(double x, double y, double width, double height, String imagePath) {
@@ -74,7 +74,7 @@ public class Entity extends Thing {
 		int drawX = (int) ((outline.getX() - reference.getX()) * Display.SCALE);
 		int drawY = (int) ((outline.getY() - reference.getY()) * Display.SCALE);
 		g.setColor(Color.red);
-		g.fillRect(drawX, drawY - 20, (int) (100 * health/MAX_HEALTH), 10);
+		g.fillRect(drawX, drawY - 20, (int) (40 * health/MAX_HEALTH), 10);
 		g.drawImage(TextureUtil.rotate(image, (int) angle, outline), drawX, drawY, 
 				 null);
 	}

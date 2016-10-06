@@ -1,5 +1,7 @@
 package spoopTime;
 
+import java.awt.Canvas;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -58,7 +60,6 @@ public class Core {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize((int) (1000 * Display.SCALE + 16), (int) (1000 * Display.SCALE + 38));
 		frame.setVisible(true);
-		
 	}
 	
 	private static void setUpWorld() {

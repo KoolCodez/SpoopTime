@@ -25,8 +25,8 @@ public class Projectile extends Thing {
 		this.speed = speed;
 		createThread();
 	}
-	private static final double SPEED_DECREMENT = 6 / Display.REFRESH_RATE;
-	private static final double MIN_SPEED = 120 / Display.REFRESH_RATE;
+	private static final double SPEED_DECREMENT = .1;
+	private static final double MIN_SPEED = 2;
 	private void createThread() {
 		Projectile p = this;
 		Thread t = new Thread() {

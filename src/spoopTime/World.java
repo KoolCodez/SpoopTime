@@ -57,12 +57,12 @@ public class World {
 	
 	public static void destroy(Thing thing) {
 		
-		for (Iterator<Thing> iterator = layers[thing.layer].things.iterator(); iterator.hasNext(); ) {
+		/*for (Iterator<Thing> iterator = layers[thing.layer].things.iterator(); iterator.hasNext(); ) {
 			if (iterator.next().equals(thing)) {
 				iterator.remove();
 			}
-		}
-		//layers[thing.layer].things.remove(thing);
+		}*/
+		layers[thing.layer].things.remove(thing);
 	}
 	
 	public static boolean contains(Thing thing) {

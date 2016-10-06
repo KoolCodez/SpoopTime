@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -20,6 +22,9 @@ public class DisplayPanel extends JPanel {
 	
 	@Override
 	public void paintComponent(Graphics g) {
+		BufferedImage buffer = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_ARGB);
+		
+		Graphics g2 = buffer.getGraphics();
 		if (gameOverMode) {
 			g.setColor(Color.black);
 			g.fillRect(0, 0, 1000, 1000);
@@ -29,9 +34,10 @@ public class DisplayPanel extends JPanel {
 			g.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
 			g.drawString("Score: ", 400, 400);
 		} else {
-			drawBackGround(g);
-			drawThings(g);
-			drawDarkness(g);
+			drawBackGround(g2);
+			drawThings(g2);
+			drawDarkness(g2);
+			g.drawImage(buffer, 0, 0, null);
 		}
 	}
 	
@@ -75,8 +81,8 @@ public class DisplayPanel extends JPanel {
 	
 	private void drawThings(Graphics g) {
 		for (int i = 0; i < 3; i++) {
-			for (Thing thing : World.layers[i].things) {
-				thing.draw(g, Display.currentLoc);
+			for (Iterator<Thing> it = World.layers[i].things.iterator(); it.hasNext(); ) {
+				it.next().draw(g, Display.currentLoc);
 			}
 		}
 	}
@@ -107,7 +113,7 @@ public class DisplayPanel extends JPanel {
 		xPoints[2] = (int) x + halfScreen;
 		yPoints[2] = (int) y + halfScreen;
 		
-		double smallSize = 1;
+		double smallSize = .6;
 		angle = Math.toRadians(Control.player.getAngle() + 45);
 		x = smallSize * Math.toDegrees(Math.cos(angle));
 		y = smallSize * Math.toDegrees(Math.sin(angle));

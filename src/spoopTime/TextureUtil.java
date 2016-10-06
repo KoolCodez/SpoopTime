@@ -49,7 +49,7 @@ public class TextureUtil {
 		return newI;
 	}
 	
-	public static Image rotate(Image image, int degrees, Ellipse2D outline) {
+	public static BufferedImage rotate(Image image, int degrees, Ellipse2D outline) {
 		/*double rotationRequired = Math.toRadians (degrees);
 		double locationX = image.getWidth(null) / 2;
 		double locationY = image.getHeight(null) / 2;

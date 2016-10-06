@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -41,6 +42,8 @@ public class SetUpPanel extends JPanel {
 			}
 		});
 		startButton.setBounds(175, 225, BUTTON_WIDTH, BUTTON_HEIGHT);
+		startButton.setBackground(new Color(214, 132, 0));
+		startButton.setBorder(new LineBorder(new Color(189, 117, 0), 4));
 		add(startButton);
 		
 		JSlider slider = new JSlider(0, 100);
@@ -56,6 +59,7 @@ public class SetUpPanel extends JPanel {
 			}
 			
 		});
+		slider.setForeground(Color.ORANGE);
 	}
 
 }

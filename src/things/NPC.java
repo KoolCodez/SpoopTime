@@ -11,7 +11,7 @@ import spoopTime.Display;
 public class NPC extends Entity {
 	private Thread thread;
 	
-	private static final double SPEED_CONSTANT = 360 / Display.REFRESH_RATE;
+	private static final double SPEED_CONSTANT = 4;
 	public NPC(double x, double y, double width, double height, String imagePath) {
 		super(x, y, width, height, imagePath);
 		speed = SPEED_CONSTANT;
