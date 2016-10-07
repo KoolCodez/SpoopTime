@@ -1,4 +1,4 @@
-package things;
+package things.entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import spoopTime.Display;
 import spoopTime.TextureUtil;
 import spoopTime.World;
+import things.Thing;
 
 public class Entity extends Thing {
 	private static final double MAX_HEALTH = 5;

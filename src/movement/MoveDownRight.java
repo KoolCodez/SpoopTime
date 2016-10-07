@@ -2,7 +2,7 @@ package movement;
 import spoopTime.Control;
 import spoopTime.Core;
 import spoopTime.Display;
-import things.Entity;
+import things.entities.Entity;
 
 public class MoveDownRight extends Thread{
 	public void run() {

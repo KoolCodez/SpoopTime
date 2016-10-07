@@ -9,8 +9,8 @@ import java.awt.geom.Point2D;
 import javax.swing.JPanel;
 
 import movement.MovementController;
-import things.Entity;
-import things.FireBall;
+import things.entities.Entity;
+import things.projectiles.FireBall;
 
 public class Control {
 	

@@ -1,6 +1,7 @@
-package things;
+package things.projectiles;
 
 import spoopTime.Display;
+import things.Thing;
 
 public class FireBall extends Projectile {
 

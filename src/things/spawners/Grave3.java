@@ -1,4 +1,4 @@
-package things;
+package things.spawners;
 
 public class Grave3 extends Spawner{
 	private static final double WIDTH = 100;

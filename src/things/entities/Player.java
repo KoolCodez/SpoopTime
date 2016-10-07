@@ -1,4 +1,4 @@
-package things;
+package things.entities;
 
 import spoopTime.Core;
 

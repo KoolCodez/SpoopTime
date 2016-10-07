@@ -3,7 +3,7 @@ package movement;
 import spoopTime.Control;
 import spoopTime.Core;
 import spoopTime.Display;
-import things.Entity;
+import things.entities.Entity;
 
 public class MoveUp extends Thread {
 	public void run() {

@@ -1,10 +1,12 @@
-package things;
+package things.spawners;
 
 import java.util.Random;
 
 import spoopTime.Core;
 import spoopTime.Display;
 import spoopTime.World;
+import things.entities.Entity;
+import things.entities.NPC;
 
 public class Spawner extends Entity {
 	private Thread t;

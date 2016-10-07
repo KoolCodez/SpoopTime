@@ -5,10 +5,10 @@ import java.awt.Canvas;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import things.Entity;
-import things.NPC;
-import things.Player;
-import things.Spawner;
+import things.entities.Entity;
+import things.entities.NPC;
+import things.entities.Player;
+import things.spawners.Spawner;
 
 public class Core {
 	public static JFrame frame;
@@ -68,8 +68,8 @@ public class Core {
 		Player player = new Player();
 		control = new Control(player);
 		World.addLayerOne(player);
-		World.createGraves();
-		World.createGrounds(-1500, -1500, 3000);
-		World.createWalls(-1500, -1500, 3000);
+		World.createGrounds();
+		World.createWalls();
+		World.createGraves(1);
 	}
 }

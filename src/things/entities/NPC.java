@@ -1,4 +1,4 @@
-package things;
+package things.entities;
 
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
@@ -7,6 +7,7 @@ import java.awt.geom.Point2D;
 import spoopTime.Control;
 import spoopTime.Core;
 import spoopTime.Display;
+import things.Thing;
 
 public class NPC extends Entity {
 	private Thread thread;

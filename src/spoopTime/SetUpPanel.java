@@ -60,6 +60,21 @@ public class SetUpPanel extends JPanel {
 			
 		});
 		slider.setForeground(Color.ORANGE);
+		
+		JSlider sizeSlider = new JSlider(1000, 10000);
+		sizeSlider.setBounds(175, 350, BUTTON_WIDTH, BUTTON_HEIGHT);
+		sizeSlider.setBackground(Color.black);
+		add(sizeSlider);
+		sizeSlider.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				World.setSize(sizeSlider.getValue());
+				
+			}
+			
+		});
+		sizeSlider.setForeground(Color.ORANGE);
 	}
 
 }

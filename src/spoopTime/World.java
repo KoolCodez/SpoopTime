@@ -5,17 +5,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import things.Entity;
-import things.Grass;
-import things.Grave1;
-import things.Grave2;
-import things.Grave3;
-import things.Spawner;
 import things.Thing;
+import things.decorations.Dirt;
+import things.decorations.Grass;
+import things.entities.Entity;
+import things.spawners.Grave1;
+import things.spawners.Grave2;
+import things.spawners.Grave3;
+import things.spawners.Spawner;
 
 public class World {
 	public static Layer[] layers = { new Layer(), new Layer(), new Layer() };
 	private static List<MoveToken> moveList = new ArrayList<MoveToken>();
+	private static int size;
 
 	public static void addLayerZero(Thing t) {
 		layers[0].things.add(t);
@@ -41,7 +43,10 @@ public class World {
 		return true;
 	}
 	
-	public static void createGrounds(int startingX, int startingY, int size) {
+	public static void createGrounds() {
+		int startingX, startingY;
+		startingX = -size / 2;
+		startingY = -size / 2;
 		int newSize = size / Grass.SIZE;
 		for (int i = 0; i < newSize; i++) {
 			for (int j = 0; j < newSize; j++) {
@@ -50,7 +55,14 @@ public class World {
 		}
 	}
 	
-	public static void createWalls(int startingX, int startingY, int size) {
+	public static void setSize(int s) {
+		size = s;
+	}
+	
+	public static void createWalls() {
+		int startingX, startingY;
+		startingX = -size / 2;
+		startingY = -size / 2;
 		Thing leftWall = new Thing(startingX, startingY, 20, size/1.4, "BackGround.jpg");
 		addLayerOne(leftWall);
 		Thing upWall = new Thing(startingX, startingY, size/1.4, 20, "BackGround.jpg");
@@ -61,15 +73,35 @@ public class World {
 		addLayerOne(downWall);
 	}
 	
-	public static void createGraves() {
-		Spawner enemySpawn1 = new Grave1(-1000, -1000);
-		addLayerOne(enemySpawn1);
-		Spawner enemySpawn2 = new Grave1(-1000, 1000);
-		addLayerOne(enemySpawn2);
-		Spawner enemySpawn3 = new Grave2(1000, -1000);
-		addLayerOne(enemySpawn3);
-		Spawner enemySpawn4 = new Grave3(1000, 1000);
-		addLayerOne(enemySpawn4);
+	public static void createGraves(int number) {
+		int startingX, startingY;
+		startingX = -size / 2;
+		startingY = -size / 2;
+		
+		for (int i = 0; i < number; i++) {
+			double x = startingX + Math.random()*size;
+			double y = startingY + Math.random()*size;
+			Spawner enemySpawn = randomGrave(x - 20, y);
+			World.addLayerOne(enemySpawn);
+			World.addLayerZero(new Dirt(x, y + Dirt.SIZE));
+			World.addLayerZero(new Dirt(x, y + Dirt.SIZE * 2));
+		}
+	}
+	
+	private static Spawner randomGrave(double x, double y) {
+		int rand = (int) (Math.random() * 3);
+		Spawner spawn;
+		switch (rand) {
+		case 0: spawn = new Grave1(x, y);
+			break;
+		case 1: spawn = new Grave2(x, y);
+			break;
+		case 2: spawn = new Grave3(x, y);
+			break;
+		default: spawn = new Grave1(x, y);
+			break;
+		}
+		return spawn;
 	}
 	
 	public static void destroy(Thing thing) {

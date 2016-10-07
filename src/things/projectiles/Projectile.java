@@ -1,4 +1,4 @@
-package things;
+package things.projectiles;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,6 +9,8 @@ import spoopTime.Core;
 import spoopTime.Display;
 import spoopTime.TextureUtil;
 import spoopTime.World;
+import things.Thing;
+import things.entities.Entity;
 
 public class Projectile extends Thing {
 	double angle = 0;
