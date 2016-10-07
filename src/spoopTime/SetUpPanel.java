@@ -46,7 +46,7 @@ public class SetUpPanel extends JPanel {
 		startButton.setBorder(new LineBorder(new Color(189, 117, 0), 4));
 		add(startButton);
 		
-		JSlider slider = new JSlider(0, 100);
+		JSlider slider = new JSlider(10, 110);
 		slider.setBounds(175, 300, BUTTON_WIDTH, BUTTON_HEIGHT);
 		slider.setBackground(Color.black);
 		add(slider);

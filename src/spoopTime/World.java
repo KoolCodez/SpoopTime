@@ -5,11 +5,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import things.Entity;
 import things.Grass;
+import things.Grave1;
+import things.Grave2;
+import things.Grave3;
+import things.Spawner;
 import things.Thing;
 
 public class World {
 	public static Layer[] layers = { new Layer(), new Layer(), new Layer() };
+	private static List<MoveToken> moveList = new ArrayList<MoveToken>();
 
 	public static void addLayerZero(Thing t) {
 		layers[0].things.add(t);
@@ -55,6 +61,17 @@ public class World {
 		addLayerOne(downWall);
 	}
 	
+	public static void createGraves() {
+		Spawner enemySpawn1 = new Grave1(-1000, -1000);
+		addLayerOne(enemySpawn1);
+		Spawner enemySpawn2 = new Grave1(-1000, 1000);
+		addLayerOne(enemySpawn2);
+		Spawner enemySpawn3 = new Grave2(1000, -1000);
+		addLayerOne(enemySpawn3);
+		Spawner enemySpawn4 = new Grave3(1000, 1000);
+		addLayerOne(enemySpawn4);
+	}
+	
 	public static void destroy(Thing thing) {
 		
 		/*for (Iterator<Thing> iterator = layers[thing.layer].things.iterator(); iterator.hasNext(); ) {
@@ -63,6 +80,26 @@ public class World {
 			}
 		}*/
 		layers[thing.layer].things.remove(thing);
+	}
+	
+	public static void addToMoveQueue(Thing thing, double deltaX, double deltaY) {
+		moveList.add(new MoveToken(thing, deltaX, deltaY));
+	}
+	
+	public static void runMoves() {
+		for (MoveToken move : moveList) {
+			if (move != null) {
+				boolean isEntity = move.thing instanceof Entity;
+				if (legalMove(move.deltaX, move.deltaY, move.thing)) {
+					move.thing.changePos(move.deltaX, move.deltaY);
+				} else if (legalMove(move.deltaX, 0, move.thing) && isEntity) {
+					move.thing.changePos(move.deltaX, 0);
+				} else if (legalMove(0, move.deltaY, move.thing) && isEntity) {
+					move.thing.changePos(0, move.deltaY);
+				}
+			}
+		}
+		moveList = new ArrayList<MoveToken>();
 	}
 	
 	public static boolean contains(Thing thing) {

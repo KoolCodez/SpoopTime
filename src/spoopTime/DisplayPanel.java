@@ -88,7 +88,7 @@ public class DisplayPanel extends JPanel {
 	}
 	
 	private void drawDarkness(Graphics g) {
-		Color c = new Color(0, 0, 0, (int) (Core.difficulty*2) + 55);
+		Color c = new Color(0, 0, 0, (int) (Core.difficulty*2) + 35);
 		g.setColor(c);
 		int points = 6;
 		int[] xPoints = new int[points];

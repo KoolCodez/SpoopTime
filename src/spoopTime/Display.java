@@ -23,22 +23,23 @@ public class Display extends Thread {
 		panel.setDoubleBuffered(true);
 		Core.frame.add(panel);
 	}
-	
+	private long delay = 0;
 	@Override
 	public void run() {
 		while (Core.gamingMode) {
-			
 			synchronized (this) {
 				this.notifyAll();
 			}
 			
 			try {
-				
-				sleep(1);
+				sleep(MILLISECONDS_TO_SLEEP - delay);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+			long startTime = System.nanoTime();
+			World.runMoves();
+			long endTime = System.nanoTime();
+			delay = (endTime - startTime) / 1000000;
 			Core.frame.revalidate();
 			Core.frame.repaint();
 			
@@ -47,11 +48,7 @@ public class Display extends Thread {
 			double y = Control.player.getLoc().getY() - 500 + playerWidth/2;
 			currentLoc = new Point2D.Double(x, y);
 			
-			try {
-				sleep(MILLISECONDS_TO_SLEEP);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			
 		}
 		panel.gameOver();
 	}

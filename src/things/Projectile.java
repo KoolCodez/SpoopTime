@@ -27,6 +27,7 @@ public class Projectile extends Thing {
 	}
 	private static final double SPEED_DECREMENT = .1;
 	private static final double MIN_SPEED = 2;
+	
 	private void createThread() {
 		Projectile p = this;
 		Thread t = new Thread() {
@@ -35,13 +36,13 @@ public class Projectile extends Thing {
 				while (speed > MIN_SPEED) {
 					move();
 					speed -= SPEED_DECREMENT;
-					synchronized (Core.display) {
-						try {
+					try {
+						synchronized (Core.display) {
 							Core.display.wait();
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						} 
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 				while (World.contains(p)) {

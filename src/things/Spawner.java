@@ -7,22 +7,20 @@ import spoopTime.Display;
 import spoopTime.World;
 
 public class Spawner extends Entity {
-	private static final double WIDTH = 60;
-	private static final double HEIGHT = 60;
 	private Thread t;
 
-	public Spawner(double x, double y) {
-		super(x, y, WIDTH, HEIGHT, "Skull.png");
+	public Spawner(double x, double y, double width, double height, String imagePath) {
+		super(x, y, width, height, imagePath);
 		createThread();
 	}
 	private static final double DIFFICULTY_CONSTANT = 10000;
-	private static final double MAX_SPAWN = 100;
+	private static final double MAX_SPAWN = 1000;
 	private void createThread() {
 		t = new Thread() {
 			@Override
 			public void run() {
 				while (health > 0) {
-					if (Math.random() * DIFFICULTY_CONSTANT < 10 + Core.difficulty &&
+					if (Math.random() * DIFFICULTY_CONSTANT < Core.difficulty &&
 							World.layers[1].things.size() <= MAX_SPAWN) {
 						spawn();
 					}

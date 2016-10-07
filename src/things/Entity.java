@@ -39,13 +39,7 @@ public class Entity extends Thing {
 		}
 		deltaX = newSpeed * horizontal;
 		deltaY = newSpeed* vertical;
-		if (World.legalMove(deltaX, deltaY, this)) {
-			changePos(deltaX, deltaY);
-		} else if(World.legalMove(0, deltaY, this)) {
-			changePos(0, deltaY);
-		} else if (World.legalMove(deltaX, 0, this)) {
-			changePos(deltaX, 0);
-		}
+		World.addToMoveQueue(this, deltaX, deltaY);
 	}
 	
 	public double getAngle() {

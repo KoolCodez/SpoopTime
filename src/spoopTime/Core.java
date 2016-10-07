@@ -40,8 +40,9 @@ public class Core {
 		temp.setVisible(true);
 		SetUpPanel panel = new SetUpPanel();
 		temp.add(panel);
-		//temp.pack();
 		while (setupMode) {
+			temp.revalidate();
+			temp.repaint();
 			try {
 				Thread.sleep(Display.MILLISECONDS_TO_SLEEP);
 				//System.out.println(temp);
@@ -67,14 +68,7 @@ public class Core {
 		Player player = new Player();
 		control = new Control(player);
 		World.addLayerOne(player);
-		Spawner enemySpawn1 = new Spawner(-1000, -1000);
-		World.addLayerOne(enemySpawn1);
-		Spawner enemySpawn2 = new Spawner(-1000, 1000);
-		World.addLayerOne(enemySpawn2);
-		Spawner enemySpawn3 = new Spawner(1000, -1000);
-		World.addLayerOne(enemySpawn3);
-		Spawner enemySpawn4 = new Spawner(1000, 1000);
-		World.addLayerOne(enemySpawn4);
+		World.createGraves();
 		World.createGrounds(-1500, -1500, 3000);
 		World.createWalls(-1500, -1500, 3000);
 	}
