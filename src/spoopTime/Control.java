@@ -74,6 +74,7 @@ public class Control {
 		FireBall f = new FireBall(point.getX(), point.getY(), Control.player);
 		World.addLayerOne(f);
 		f.startMoving(player.getAngle());
+		Core.score--;
 	}
 	
 	private void addMotionListener() {

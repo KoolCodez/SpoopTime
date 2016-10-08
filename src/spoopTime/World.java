@@ -4,11 +4,13 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import things.Thing;
 import things.decorations.Dirt;
 import things.decorations.Grass;
 import things.entities.Entity;
+import things.entities.NPC;
 import things.spawners.Grave1;
 import things.spawners.Grave2;
 import things.spawners.Grave3;
@@ -16,7 +18,7 @@ import things.spawners.Spawner;
 
 public class World {
 	public static Layer[] layers = { new Layer(), new Layer(), new Layer() };
-	private static List<MoveToken> moveList = new ArrayList<MoveToken>();
+	private static List<MoveToken> moveList = new CopyOnWriteArrayList<MoveToken>();
 	private static int size = 6000;
 
 	public static void addLayerZero(Thing t) {
@@ -113,6 +115,9 @@ public class World {
 				iterator.remove();
 			}
 		}*/
+		if (thing instanceof NPC) {
+			Core.score += ((NPC) thing).value;
+		}
 		layers[thing.layer].things.remove(thing);
 	}
 	

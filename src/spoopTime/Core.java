@@ -17,6 +17,7 @@ public class Core {
 	public static boolean setupMode = false;
 	public static boolean gamingMode = false;
 	public static double difficulty = 60;
+	public static int score = 0;
 	
 	public static void main(String[] args) {
 		setupMode();

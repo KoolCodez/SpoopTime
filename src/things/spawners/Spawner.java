@@ -15,7 +15,7 @@ public class Spawner extends Entity {
 		super(x, y, width, height, imagePath);
 		createThread();
 	}
-	private static final double DIFFICULTY_CONSTANT = 10000;
+	private static final double DIFFICULTY_CONSTANT = 20000;
 	private static final double MAX_SPAWN = 1000;
 	private void createThread() {
 		t = new Thread() {

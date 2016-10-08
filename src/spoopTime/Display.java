@@ -46,12 +46,15 @@ public class Display extends Thread {
 			}
 			long startTime = System.nanoTime();
 			try {
-			World.runMoves();
+				World.runMoves();
 			} catch (ConcurrentModificationException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 			long endTime = System.nanoTime();
 			delay = (endTime - startTime) / 1000000;
+			if (delay >= MILLISECONDS_TO_SLEEP) {
+				delay = 0;
+			}
 			Core.frame.revalidate();
 			Core.frame.repaint();
 			

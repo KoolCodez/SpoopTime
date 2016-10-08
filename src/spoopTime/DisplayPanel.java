@@ -28,11 +28,13 @@ public class DisplayPanel extends JPanel {
 		if (gameOverMode) {
 			g.setColor(Color.black);
 			g.fillRect(0, 0, 1000, 1000);
-			g.setColor(Color.white);
+			g.setColor(new Color(214, 132, 0));
 			g.setFont(new Font(Font.SERIF, Font.PLAIN, 100));
 			g.drawString("GAME OVER", 200, 300);
 			g.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
 			g.drawString("Score: ", 400, 400);
+			g.setFont(new Font(Font.SERIF, Font.PLAIN, 35));
+			g.drawString("\t\t" + Core.score, 450, 400);
 		} else {
 			drawBackGround(g2);
 			drawThings(g2);
@@ -41,6 +43,9 @@ public class DisplayPanel extends JPanel {
 			} catch(NullPointerException e) {
 				
 			}
+			g2.setColor(new Color(214, 132, 0));
+			g2.setFont(new Font(Font.SERIF, Font.PLAIN, 35));
+			g2.drawString("" + Core.score, 900, 50);
 			g.drawImage(buffer, 0, 0, null);
 		}
 	}
