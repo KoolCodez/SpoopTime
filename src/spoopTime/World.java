@@ -17,7 +17,7 @@ import things.spawners.Spawner;
 public class World {
 	public static Layer[] layers = { new Layer(), new Layer(), new Layer() };
 	private static List<MoveToken> moveList = new ArrayList<MoveToken>();
-	private static int size;
+	private static int size = 6000;
 
 	public static void addLayerZero(Thing t) {
 		layers[0].things.add(t);
@@ -73,11 +73,13 @@ public class World {
 		addLayerOne(downWall);
 	}
 	
-	public static void createGraves(int number) {
+	public static void createGraves(double ratioPerSquareThousand) {
 		int startingX, startingY;
 		startingX = -size / 2;
 		startingY = -size / 2;
-		
+		int number = (int) (ratioPerSquareThousand * (size / 1000) * Core.difficulty / 10);
+		System.out.println(ratioPerSquareThousand * (size / 1000));
+		System.out.println(number);
 		for (int i = 0; i < number; i++) {
 			double x = startingX + Math.random()*size;
 			double y = startingY + Math.random()*size;
@@ -141,6 +143,12 @@ public class World {
 			}
 		}
 		return false;
+	}
+	
+	public static void clearEnts() {
+		for (Layer l : layers) {
+			l.clearEnts();
+		}
 	}
 	
 	public static void resetWorld() {

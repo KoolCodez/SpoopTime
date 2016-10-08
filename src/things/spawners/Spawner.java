@@ -22,7 +22,7 @@ public class Spawner extends Entity {
 			@Override
 			public void run() {
 				while (health > 0) {
-					if (Math.random() * DIFFICULTY_CONSTANT < Core.difficulty &&
+					if ((Math.random() * DIFFICULTY_CONSTANT) < Core.difficulty &&
 							World.layers[1].things.size() <= MAX_SPAWN) {
 						spawn();
 					}
@@ -41,15 +41,10 @@ public class Spawner extends Entity {
 	} //end createThread
 	
 	private void spawn() {
-		NPC enemy = new NPC(getOutline().getX() + randomGap(), getOutline().getY() + randomGap(),
+		NPC enemy = new NPC(getOutline().getX(), getOutline().getY() + getOutline().getHeight(),
 				50, 50, "Goblin.png");
 		World.addLayerOne(enemy);
 		enemy.startFollowing();
-	}
-	
-	private int randomGap() {
-		int random = (int) (Math.random() * 2) * 2 - 1;
-		return random*140;
 	}
 
 }

@@ -16,19 +16,21 @@ public class Core {
 	private static Control control;
 	public static boolean setupMode = false;
 	public static boolean gamingMode = false;
-	public static double difficulty = 50;
+	public static double difficulty = 60;
 	
 	public static void main(String[] args) {
 		setupMode();
 		setUpFrame();
-		reset();
+		display = new Display();
+		setUpWorld();
+		populateWorld();
+		display.start();
 	}
 	
 	public static void reset() {
 		World.resetWorld();
-		display = new Display();
 		setUpWorld();
-		display.start();
+		populateWorld();
 	}
 	
 	private static void setupMode() {
@@ -65,11 +67,14 @@ public class Core {
 	
 	private static void setUpWorld() {
 		gamingMode = true;
+		World.createGrounds();
+		World.createWalls();
+		
+	}
+	private static void populateWorld() {
+		World.createGraves(1);
 		Player player = new Player();
 		control = new Control(player);
 		World.addLayerOne(player);
-		World.createGrounds();
-		World.createWalls();
-		World.createGraves(1);
 	}
 }

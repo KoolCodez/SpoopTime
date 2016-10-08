@@ -47,6 +47,7 @@ public class SetUpPanel extends JPanel {
 		add(startButton);
 		
 		JSlider slider = new JSlider(10, 110);
+		slider.setValue(60);
 		slider.setBounds(175, 300, BUTTON_WIDTH, BUTTON_HEIGHT);
 		slider.setBackground(Color.black);
 		add(slider);
@@ -61,7 +62,7 @@ public class SetUpPanel extends JPanel {
 		});
 		slider.setForeground(Color.ORANGE);
 		
-		JSlider sizeSlider = new JSlider(1000, 10000);
+		JSlider sizeSlider = new JSlider(1000, 11000);
 		sizeSlider.setBounds(175, 350, BUTTON_WIDTH, BUTTON_HEIGHT);
 		sizeSlider.setBackground(Color.black);
 		add(sizeSlider);
@@ -70,11 +71,11 @@ public class SetUpPanel extends JPanel {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				World.setSize(sizeSlider.getValue());
-				
 			}
 			
 		});
 		sizeSlider.setForeground(Color.ORANGE);
+		
 	}
 
 }

@@ -1,6 +1,7 @@
 package spoopTime;
 
 import java.awt.geom.Point2D;
+import java.util.ConcurrentModificationException;
 
 import javax.swing.JPanel;
 
@@ -26,6 +27,13 @@ public class Display extends Thread {
 	private long delay = 0;
 	@Override
 	public void run() {
+		while (true) {
+			runGame();
+			runGameOver();
+		}
+	}
+	
+	private void runGame() {
 		while (Core.gamingMode) {
 			synchronized (this) {
 				this.notifyAll();
@@ -37,7 +45,11 @@ public class Display extends Thread {
 				e.printStackTrace();
 			}
 			long startTime = System.nanoTime();
+			try {
 			World.runMoves();
+			} catch (ConcurrentModificationException e) {
+				e.printStackTrace();
+			}
 			long endTime = System.nanoTime();
 			delay = (endTime - startTime) / 1000000;
 			Core.frame.revalidate();
@@ -47,9 +59,20 @@ public class Display extends Thread {
 			double x = Control.player.getLoc().getX() - 500 + playerWidth/2;
 			double y = Control.player.getLoc().getY() - 500 + playerWidth/2;
 			currentLoc = new Point2D.Double(x, y);
-			
-			
 		}
+	}
+	
+	
+	private void runGameOver() {
 		panel.gameOver();
+		synchronized (panel) {
+			try {
+				panel.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }

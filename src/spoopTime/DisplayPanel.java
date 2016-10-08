@@ -36,7 +36,11 @@ public class DisplayPanel extends JPanel {
 		} else {
 			drawBackGround(g2);
 			drawThings(g2);
-			drawDarkness(g2);
+			try {
+				drawDarkness(g2);
+			} catch(NullPointerException e) {
+				
+			}
 			g.drawImage(buffer, 0, 0, null);
 		}
 	}
@@ -53,6 +57,9 @@ public class DisplayPanel extends JPanel {
 				Core.reset();
 				thisPanel.remove(endButton);
 				thisPanel.remove(restartButton);
+				synchronized (thisPanel) {
+					thisPanel.notifyAll();
+				}
 			}
 		});
 		restartButton.setBounds(425, 475, BUTTON_WIDTH, BUTTON_HEIGHT);
