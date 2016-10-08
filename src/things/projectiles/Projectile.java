@@ -48,11 +48,7 @@ public class Projectile extends Thing {
 					}
 				}
 				while (World.contains(p)) {
-					try {
 					World.destroy(p);
-					} catch(java.util.ConcurrentModificationException e) {
-						e.printStackTrace();
-					}
 				}
 			}
 		};
