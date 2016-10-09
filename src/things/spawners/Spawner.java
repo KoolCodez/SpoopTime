@@ -43,7 +43,7 @@ public class Spawner extends Entity {
 	private void spawn() {
 		NPC enemy = new NPC(getOutline().getX(), getOutline().getY() + getOutline().getHeight(),
 				50, 50, "Goblin.png");
-		World.addLayerOne(enemy);
+		World.addLayer(enemy, 1);
 		enemy.startFollowing();
 	}
 

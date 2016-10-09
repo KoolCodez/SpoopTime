@@ -39,7 +39,7 @@ public class Thing {
 		outline = new Ellipse2D.Double(outline.getX() + deltaX, outline.getY() + deltaY, outline.getWidth(), outline.getHeight());
 	}
 	
-	public boolean checkCollision(Ellipse2D shape) {
+	public boolean checkCollision(Ellipse2D shape, Thing thing) {
 		return outline.intersects(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
 	}
 	

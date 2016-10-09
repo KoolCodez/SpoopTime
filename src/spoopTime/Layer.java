@@ -19,7 +19,7 @@ public class Layer {
 		
 		for (Iterator<Thing> iterator = things.iterator(); iterator.hasNext(); ) {
 			Thing t = iterator.next();
-			if (thing != t && t.checkCollision(outline)) {
+			if (thing != t && t.checkCollision(outline, thing)) {
 				thing.collide(t);
 				t.collide(thing);
 				return false;

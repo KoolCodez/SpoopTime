@@ -11,6 +11,7 @@ import things.decorations.Dirt;
 import things.decorations.Grass;
 import things.entities.Entity;
 import things.entities.NPC;
+import things.projectiles.Projectile;
 import things.spawners.Grave1;
 import things.spawners.Grave2;
 import things.spawners.Grave3;
@@ -20,20 +21,24 @@ public class World {
 	public static Layer[] layers = { new Layer(), new Layer(), new Layer() };
 	private static List<MoveToken> moveList = new CopyOnWriteArrayList<MoveToken>();
 	private static int size = 6000;
-
-	public static void addLayerZero(Thing t) {
-		layers[0].things.add(t);
-		t.layer = 0;
-	}
-
-	public static void addLayerOne(Thing t) {
-		layers[1].things.add(t);
-		t.layer = 1;
-	}
-
-	public static void addLayerTwo(Thing t) {
-		layers[2].things.add(t);
-		t.layer = 2;
+	
+	public static void addLayer(Thing thing, int layer) {
+		
+		thing.layer = layer;
+		if (thing instanceof Projectile) {
+			if (legalMove(0, 0, thing)) {
+				layers[layer].things.add(thing);
+			}
+		} else if (thing instanceof Entity) {
+			if (legalMove(0, 0, thing)) {
+				layers[layer].things.add(thing);
+			}
+		} else {
+			if (legalMove(0, 0, thing)) {
+				layers[layer].things.add(thing);
+			}
+		}
+		
 	}
 
 	public static boolean legalMove(double deltaX, double deltaY, Thing thing) {
@@ -66,13 +71,13 @@ public class World {
 		startingX = -size / 2;
 		startingY = -size / 2;
 		Thing leftWall = new Thing(startingX, startingY, 20, size/1.4, "BackGround.jpg");
-		addLayerOne(leftWall);
+		addLayer(leftWall, 1);
 		Thing upWall = new Thing(startingX, startingY, size/1.4, 20, "BackGround.jpg");
-		addLayerOne(upWall);
+		addLayer(upWall, 1);
 		Thing rightWall = new Thing(startingX + size, startingY, 20, size/1.4, "BackGround.jpg");
-		addLayerOne(rightWall);
+		addLayer(rightWall, 1);
 		Thing downWall = new Thing(startingX, startingY + size, size/1.4, 20, "BackGround.jpg");
-		addLayerOne(downWall);
+		addLayer(downWall, 1);
 	}
 	
 	public static void createGraves(double ratioPerSquareThousand) {
@@ -86,9 +91,9 @@ public class World {
 			double x = startingX + Math.random()*size;
 			double y = startingY + Math.random()*size;
 			Spawner enemySpawn = randomGrave(x - 20, y);
-			World.addLayerOne(enemySpawn);
-			World.addLayerZero(new Dirt(x, y + Dirt.SIZE));
-			World.addLayerZero(new Dirt(x, y + Dirt.SIZE * 2));
+			World.addLayer(enemySpawn, 1);
+			World.addLayer(new Dirt(x, y + Dirt.SIZE), 0);
+			World.addLayer(new Dirt(x, y + Dirt.SIZE * 2), 0);
 		}
 	}
 	

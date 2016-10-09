@@ -13,7 +13,7 @@ public class FireBall extends Projectile {
 	}
 	
 	public void startMoving(double direction) {
-		super.startMoving(direction, 12);
+		super.startMoving(direction, 17);
 	}
 
 }

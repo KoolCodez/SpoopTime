@@ -2,6 +2,7 @@ package things.projectiles;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
 import spoopTime.Control;
@@ -37,6 +38,7 @@ public class Projectile extends Thing {
 			public void run() {
 				while (speed > MIN_SPEED) {
 					move();
+					
 					speed -= SPEED_DECREMENT;
 					try {
 						synchronized (Core.display) {
@@ -64,8 +66,6 @@ public class Projectile extends Thing {
 		try {
 			if (World.legalMove(deltaX, deltaY, this)) {
 				changePos(deltaX, deltaY);
-			} else {
-				speed = -1;
 			}
 		} catch(java.util.ConcurrentModificationException e) {
 			e.printStackTrace();
@@ -76,11 +76,22 @@ public class Projectile extends Thing {
 	}
 	
 	@Override
+	public boolean checkCollision(Ellipse2D shape, Thing thing) {
+		if (thing instanceof Projectile) {
+			if (((Projectile) thing).shooter.equals(this.shooter)) {
+				return false;
+			}
+		}
+		return outline.intersects(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+	}
+	
+	@Override
 	public void collide(Thing thing) {
 		if (thing instanceof Projectile) {
-			if (((Projectile) thing).shooter != this.shooter) {
+			if (!((Projectile) thing).shooter.equals(this.shooter)) {
 				speed = 0;
 			}
+		} else if (thing.equals(shooter)) {
 		} else {
 			speed = 0;
 		}

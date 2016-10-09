@@ -21,9 +21,10 @@ public class Core {
 	
 	public static void main(String[] args) {
 		setupMode();
+		setUpWorld();
+		
 		setUpFrame();
 		display = new Display();
-		setUpWorld();
 		populateWorld();
 		display.start();
 	}
@@ -76,6 +77,6 @@ public class Core {
 		World.createGraves(1);
 		Player player = new Player();
 		control = new Control(player);
-		World.addLayerOne(player);
+		World.addLayer(player, 1);
 	}
 }
