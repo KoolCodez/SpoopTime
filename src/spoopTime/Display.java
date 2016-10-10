@@ -53,6 +53,7 @@ public class Display extends Thread {
 			long endTime = System.nanoTime();
 			delay = (endTime - startTime) / 1000000;
 			if (delay >= MILLISECONDS_TO_SLEEP) {
+				System.out.println("You're too slow!");
 				delay = 0;
 			}
 			Core.frame.revalidate();

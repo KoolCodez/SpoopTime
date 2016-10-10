@@ -55,7 +55,6 @@ public class Core {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("boop");
 		temp.setVisible(false);
 		System.out.println("ending set up");
 	}
