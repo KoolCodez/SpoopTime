@@ -1,10 +1,6 @@
 package things.spawners;
 
-import java.util.Random;
-
-import spoopTime.Control;
 import spoopTime.Core;
-import spoopTime.Display;
 import spoopTime.World;
 import things.entities.Entity;
 import things.entities.NPC;
@@ -17,14 +13,14 @@ public class Spawner extends Entity {
 		createThread();
 		setHealth(40.0);
 	}
-	private static final double DIFFICULTY_CONSTANT = 30e7;
+	private static final double DIFFICULTY_CONSTANT = 50e7;
 	private static final double MAX_SPAWN = 1000;
 	private void createThread() {
 		t = new Thread() {
 			@Override
 			public void run() {
 				while (health > 0) {
-					if ((Math.random() * DIFFICULTY_CONSTANT / World.getSize()) < Core.difficulty &&
+					if ((Math.random() * DIFFICULTY_CONSTANT / (World.getSize()*2)) < Core.difficulty &&
 							World.layers[1].things.size() <= MAX_SPAWN) {
 						spawn();
 					}

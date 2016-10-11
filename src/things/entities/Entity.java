@@ -44,7 +44,15 @@ public class Entity extends Thing {
 			newSpeed = Math.sqrt(speed * speed / 2);
 		}
 		deltaX = newSpeed * horizontal;
-		deltaY = newSpeed* vertical;
+		deltaY = newSpeed * vertical;
+		World.addToMoveQueue(this, deltaX, deltaY);
+	}
+	
+	public void move(double xRatio, double yRatio) {
+		double deltaX;
+		double deltaY;
+		deltaX = speed * xRatio;
+		deltaY = speed * yRatio;
 		World.addToMoveQueue(this, deltaX, deltaY);
 	}
 	

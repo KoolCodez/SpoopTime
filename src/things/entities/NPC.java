@@ -34,17 +34,15 @@ public class NPC extends Entity {
 				while (true) {
 					Point2D point = Control.player.getLoc();
 					Ellipse2D el = Control.player.getOutline();
-					point.setLocation(point.getX() + el.getWidth()/2, point.getY() + el.getHeight()/2);
+					point.setLocation(point.getX() + el.getWidth()/2, 
+							point.getY() + el.getHeight()/2);
 					double deltaX = point.getX() - outline.getX();
 					double deltaY = point.getY() - outline.getY();
-					if (Math.abs(deltaX) < 10) {
-						deltaX = 0;
-					}
-					if (Math.abs(deltaY) < 10) {
-						deltaY = 0;
-					}
+					double distance = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
+					double xRatio = deltaX / distance;
+					double yRatio = deltaY / distance;
 					faceToward(new Point((int) point.getX(), (int) point.getY()));
-					move((int) (deltaX / Math.abs(deltaX)), (int) (deltaY / Math.abs(deltaY)));
+					move(xRatio, yRatio);
 					try {
 						synchronized (Core.display) {
 							Core.display.wait();
