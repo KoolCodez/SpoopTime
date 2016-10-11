@@ -13,8 +13,8 @@ import spoopTime.World;
 import things.Thing;
 
 public class Entity extends Thing {
-	private static final double MAX_HEALTH = 5;
 	protected double health = 10;
+	protected double maxHealth = health;
 	private double angle = 0;
 	protected double speed = 10;
 	public static enum Move {LEFT, RIGHT, UP, DOWN, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT};
@@ -29,6 +29,11 @@ public class Entity extends Thing {
 		angle = Math.atan2(myY - p.y, myX - p.x);
 		angle *= 180 / Math.PI;
 		angle -= 90;
+	}
+	
+	protected void setHealth(double h) {
+		health = h;
+		maxHealth = health;
 	}
 	//-1, 0, and 1 ONLY!! IT WILL NOT WORK IF IT IS ANOTHER NUMBER!
 	public void move(int horizontal, int vertical) {
@@ -69,7 +74,7 @@ public class Entity extends Thing {
 		int drawX = (int) ((outline.getX() - reference.getX()) * Display.SCALE);
 		int drawY = (int) ((outline.getY() - reference.getY()) * Display.SCALE);
 		g.setColor(Color.red);
-		g.fillRect(drawX, drawY - 20, (int) (40 * health/MAX_HEALTH), 10);
+		g.fillRect(drawX, drawY - 20, (int) (outline.getWidth() * health/maxHealth), 10);
 		g.drawImage(TextureUtil.rotate(image, (int) angle, outline), drawX, drawY, 
 				 null);
 	}

@@ -9,6 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import things.Thing;
 import things.decorations.Dirt;
 import things.decorations.Grass;
+import things.decorations.Wall;
 import things.entities.Entity;
 import things.entities.NPC;
 import things.projectiles.Projectile;
@@ -23,22 +24,13 @@ public class World {
 	private static int size = 6000;
 	
 	public static void addLayer(Thing thing, int layer) {
-		
+		layers[layer].things.add(thing);
 		thing.layer = layer;
-		if (thing instanceof Projectile) {
-			if (legalMove(0, 0, thing)) {
-				layers[layer].things.add(thing);
-			}
-		} else if (thing instanceof Entity) {
-			if (legalMove(0, 0, thing)) {
-				layers[layer].things.add(thing);
-			}
-		} else {
-			if (legalMove(0, 0, thing)) {
-				layers[layer].things.add(thing);
+		if (!(thing instanceof Dirt) && !(thing instanceof Wall)) {
+			if (!legalMove(0, 0, thing)) {
+				layers[layer].things.remove(thing);
 			}
 		}
-		
 	}
 
 	public static boolean legalMove(double deltaX, double deltaY, Thing thing) {
@@ -66,17 +58,21 @@ public class World {
 		size = s;
 	}
 	
+	public static int getSize() {
+		return size;
+	}
+	
 	public static void createWalls() {
 		int startingX, startingY;
 		startingX = -size / 2;
 		startingY = -size / 2;
-		Thing leftWall = new Thing(startingX, startingY, 20, size/1.4, "BackGround.jpg");
+		Wall leftWall = new Wall(startingX, startingY, 20, size/1.4);
 		addLayer(leftWall, 1);
-		Thing upWall = new Thing(startingX, startingY, size/1.4, 20, "BackGround.jpg");
+		Wall upWall = new Wall(startingX, startingY, size/1.4, 20);
 		addLayer(upWall, 1);
-		Thing rightWall = new Thing(startingX + size, startingY, 20, size/1.4, "BackGround.jpg");
+		Wall rightWall = new Wall(startingX + size, startingY, 20, size/1.4);
 		addLayer(rightWall, 1);
-		Thing downWall = new Thing(startingX, startingY + size, size/1.4, 20, "BackGround.jpg");
+		Wall downWall = new Wall(startingX, startingY + size, size/1.4, 20);
 		addLayer(downWall, 1);
 	}
 	
