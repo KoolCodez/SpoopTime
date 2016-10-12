@@ -2,14 +2,22 @@ package things.spawners;
 
 import spoopTime.Core;
 import spoopTime.World;
+import things.decorations.DeadGrave;
 import things.entities.Entity;
 import things.entities.NPC;
+import things.entities.Zombie;
 
 public class Spawner extends Entity {
 	private Thread t;
 
 	public Spawner(double x, double y, double width, double height, String imagePath) {
 		super(x, y, width, height, imagePath);
+		createThread();
+		setHealth(40.0);
+	}
+	
+	public Spawner() {
+		super();
 		createThread();
 		setHealth(40.0);
 	}
@@ -38,11 +46,17 @@ public class Spawner extends Entity {
 		t.start();
 	} //end createThread
 	
-	private void spawn() {
-		NPC enemy = new NPC(getOutline().getX(), getOutline().getY() + getOutline().getHeight(),
-				50, 50, "Goblin.png");
+	protected void spawn() {
+		NPC enemy = new Zombie(getOutline().getX(), getOutline().getY() + getOutline().getHeight());
 		World.addLayer(enemy, 1);
 		enemy.startFollowing();
+	}
+	
+	@Override
+	public void kill() {
+		health = 0;
+		World.addLayer(new DeadGrave(getLoc().getX(), getLoc().getY(), this), layer);
+		World.destroy(this);
 	}
 
 }

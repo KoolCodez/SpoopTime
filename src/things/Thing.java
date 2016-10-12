@@ -21,7 +21,7 @@ public class Thing {
 	
 	public Thing(double x, double y, double width, double height, String imagePath) {
 		outline = new Ellipse2D.Double(x, y, Math.sqrt(2 * width * width), Math.sqrt(2 * height * height));
-		this.image = TextureUtil.loadImage(imagePath, width, height, true);
+		this.image = TextureUtil.loadImage(imagePath, width, height, false);
 	}
 	
 	public Point2D getLoc() {

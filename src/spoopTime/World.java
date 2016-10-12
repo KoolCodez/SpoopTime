@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import things.Thing;
+import things.decorations.DeadGrave;
 import things.decorations.Dirt;
 import things.decorations.Grass;
 import things.decorations.Wall;
@@ -26,11 +27,24 @@ public class World {
 	public static void addLayer(Thing thing, int layer) {
 		layers[layer].things.add(thing);
 		thing.layer = layer;
-		if (!(thing instanceof Dirt) && !(thing instanceof Wall)) {
+		if (!exempt(thing)) {
 			if (!legalMove(0, 0, thing)) {
 				layers[layer].things.remove(thing);
 			}
 		}
+	}
+	
+	private static boolean exempt(Thing thing) {
+		if (thing instanceof Dirt) {
+			return true;
+		}
+		if (thing instanceof Wall) {
+			return true;
+		}
+		if (thing instanceof DeadGrave) {
+			return true;
+		}
+		return false;
 	}
 
 	public static boolean legalMove(double deltaX, double deltaY, Thing thing) {
@@ -90,6 +104,41 @@ public class World {
 			World.addLayer(enemySpawn, 1);
 			World.addLayer(new Dirt(x, y + Dirt.SIZE), 0);
 			World.addLayer(new Dirt(x, y + Dirt.SIZE * 2), 0);
+		}
+		createGraveChecker();
+	}
+	
+	private static void createGraveChecker() {
+		Thread graveChecker = new Thread() {
+			@Override
+			public void run() {
+				while (true) {
+					boolean allGravesGone = true;
+					for (Thing thing : layers[1].things) {
+						if (thing instanceof Spawner) {
+							allGravesGone = false;
+						}
+					}
+					if (allGravesGone) {
+						rezGraves();
+					}
+					try {
+						sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		graveChecker.start();
+	}
+	
+	private static void rezGraves() {
+		for (Thing thing : layers[1].things) {
+			if (thing instanceof DeadGrave) {
+				((DeadGrave) thing).respawn();
+			}
 		}
 	}
 	

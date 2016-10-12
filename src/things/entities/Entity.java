@@ -23,6 +23,10 @@ public class Entity extends Thing {
 		super(x, y, width, height, imagePath);
 	}
 	
+	public Entity() {
+		super();
+	}
+	
 	public void faceToward(Point p) {
 		double myX = outline.getX() + outline.getWidth()/2;
 		double myY = outline.getY() + outline.getHeight()/2;
