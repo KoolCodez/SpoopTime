@@ -159,15 +159,6 @@ public class World {
 	}
 	
 	public static void destroy(Thing thing) {
-		
-		/*for (Iterator<Thing> iterator = layers[thing.layer].things.iterator(); iterator.hasNext(); ) {
-			if (iterator.next().equals(thing)) {
-				iterator.remove();
-			}
-		}*/
-		if (thing instanceof NPC) {
-			Core.score += ((NPC) thing).value;
-		}
 		layers[thing.layer].things.remove(thing);
 	}
 	

@@ -13,7 +13,7 @@ public class DeadGrave extends Thing {
 	}
 	
 	public void respawn() {
-		World.addLayer(new RandomGrave(getLoc().getX(), getLoc().getY()), layer);
 		World.destroy(this);
+		World.addLayer(new RandomGrave(getLoc().getX(), getLoc().getY()), layer);
 	}
 }

@@ -11,7 +11,7 @@ import things.Thing;
 
 public class NPC extends Entity {
 	private Thread thread;
-	public int value = 10;
+	private int value = 10;
 	
 	private static final double SPEED_CONSTANT = 4;
 	public NPC(double x, double y, double width, double height, String imagePath) {
@@ -25,6 +25,12 @@ public class NPC extends Entity {
 			Entity temp = (Entity) thing;
 			temp.damage(.1);
 		}
+	}
+	
+	@Override
+	public void kill() {
+		super.kill();
+		Core.score += value;
 	}
 
 	public void startFollowing() {

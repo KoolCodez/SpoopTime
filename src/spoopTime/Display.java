@@ -1,5 +1,6 @@
 package spoopTime;
 
+import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.util.ConcurrentModificationException;
 
@@ -12,6 +13,8 @@ public class Display extends Thread {
 	public static final double SCALE = 1;
 	public static final double REFRESH_RATE = 60;
 	public static final long MILLISECONDS_TO_SLEEP = (long) (1000/REFRESH_RATE);
+	public static final Color ORANGE = new Color(214, 132, 0);
+	public static final Color BORDER_ORANGE = new Color(189, 117, 0);
 	
 	public Display() {
 		setUpDisplay();

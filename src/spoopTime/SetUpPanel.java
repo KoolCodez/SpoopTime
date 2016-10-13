@@ -25,12 +25,15 @@ public class SetUpPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, 500, 500);
-		g.setColor(Color.white);
+		g.setColor(Display.ORANGE);
 		g.drawString("DIFFICULTY", 220, 300);
+		g.setColor(Color.white);
 		g.fillOval(325, 310, 25, 25);
 		g.fillOval(150, 310, 25, 25);
 		g.setColor(Color.black);
 		g.fillOval(155, 310, 25, 25);
+		g.setColor(Display.ORANGE);
+		g.drawString("WORLD SIZE", 218, 375);
 	}
 	
 	private void createButtons() {
@@ -42,8 +45,8 @@ public class SetUpPanel extends JPanel {
 			}
 		});
 		startButton.setBounds(175, 225, BUTTON_WIDTH, BUTTON_HEIGHT);
-		startButton.setBackground(new Color(214, 132, 0));
-		startButton.setBorder(new LineBorder(new Color(189, 117, 0), 4));
+		startButton.setBackground(Display.ORANGE);
+		startButton.setBorder(new LineBorder(Display.BORDER_ORANGE, 4));
 		add(startButton);
 		
 		JSlider slider = new JSlider(10, 110);
@@ -63,7 +66,7 @@ public class SetUpPanel extends JPanel {
 		slider.setForeground(Color.ORANGE);
 		
 		JSlider sizeSlider = new JSlider(1000, 11000);
-		sizeSlider.setBounds(175, 350, BUTTON_WIDTH, BUTTON_HEIGHT);
+		sizeSlider.setBounds(175, 375, BUTTON_WIDTH, BUTTON_HEIGHT);
 		sizeSlider.setBackground(Color.black);
 		add(sizeSlider);
 		sizeSlider.addChangeListener(new ChangeListener() {

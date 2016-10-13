@@ -9,7 +9,8 @@ import things.entities.Zombie;
 
 public class Spawner extends Entity {
 	private Thread t;
-
+	private int value = 50;
+	
 	public Spawner(double x, double y, double width, double height, String imagePath) {
 		super(x, y, width, height, imagePath);
 		createThread();
@@ -55,6 +56,7 @@ public class Spawner extends Entity {
 	@Override
 	public void kill() {
 		health = 0;
+		Core.score += value;
 		World.addLayer(new DeadGrave(getLoc().getX(), getLoc().getY(), this), layer);
 		World.destroy(this);
 	}
