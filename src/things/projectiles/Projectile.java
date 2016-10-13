@@ -8,6 +8,7 @@ import java.awt.geom.Point2D;
 import spoopTime.Control;
 import spoopTime.Core;
 import spoopTime.Display;
+import spoopTime.DisplayPanel;
 import spoopTime.TextureUtil;
 import spoopTime.World;
 import things.Thing;
@@ -102,10 +103,11 @@ public class Projectile extends Thing {
 	
 	@Override
 	public void draw(Graphics g, Point2D reference) {
-		int drawX = (int) ((outline.getX() - reference.getX()) * Display.SCALE);
-		int drawY = (int) ((outline.getY() - reference.getY()) * Display.SCALE);
+		int drawX = DisplayPanel.scaled(outline.getX() - reference.getX());
+		int drawY = DisplayPanel.scaled(outline.getY() - reference.getY());
 		g.drawImage(TextureUtil.rotate(image, (int) angle, outline), drawX, drawY, 
-				 null);
+				DisplayPanel.scaled(outline.getWidth()), 
+				DisplayPanel.scaled(outline.getHeight()), null);
 	}
 
 }

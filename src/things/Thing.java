@@ -7,6 +7,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import spoopTime.Display;
+import spoopTime.DisplayPanel;
 import spoopTime.TextureUtil;
 
 public class Thing {
@@ -44,9 +45,9 @@ public class Thing {
 	}
 	
 	public void draw(Graphics g, Point2D reference) {
-		int drawX = (int) ((outline.getX() - reference.getX()) * Display.SCALE);
-		int drawY = (int) ((outline.getY() - reference.getY()) * Display.SCALE);
-		g.drawImage(image, drawX, drawY, (int) (outline.getWidth() * Display.SCALE), 
-				(int) (outline.getHeight() * Display.SCALE), null);
+		int drawX = DisplayPanel.scaled(outline.getX() - reference.getX());
+		int drawY = DisplayPanel.scaled(outline.getY() - reference.getY());
+		g.drawImage(image, drawX, drawY, DisplayPanel.scaled(outline.getWidth()), 
+				DisplayPanel.scaled(outline.getHeight()), null);
 	}
 }

@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Polygon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
@@ -27,14 +28,14 @@ public class DisplayPanel extends JPanel {
 		Graphics g2 = buffer.getGraphics();
 		if (gameOverMode) {
 			g.setColor(Color.black);
-			g.fillRect(0, 0, 1000, 1000);
+			g.fillRect(0, 0, scaled(1000), scaled(1000));
 			g.setColor(new Color(214, 132, 0));
-			g.setFont(new Font(Font.SERIF, Font.PLAIN, 100));
-			g.drawString("GAME OVER", 200, 300);
-			g.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
-			g.drawString("Score: ", 400, 400);
-			g.setFont(new Font(Font.SERIF, Font.PLAIN, 35));
-			g.drawString("\t\t" + Core.score, 450, 400);
+			g.setFont(new Font(Font.SERIF, Font.PLAIN, scaled(100)));
+			g.drawString("GAME OVER", scaled(200), scaled(300));
+			g.setFont(new Font(Font.SERIF, Font.PLAIN, scaled(20)));
+			g.drawString("Score: ", scaled(400), scaled(400));
+			g.setFont(new Font(Font.SERIF, Font.PLAIN, scaled(35)));
+			g.drawString("\t\t" + Core.score, scaled(450), scaled(400));
 		} else {
 			drawBackGround(g2);
 			drawThings(g2);
@@ -44,10 +45,14 @@ public class DisplayPanel extends JPanel {
 				
 			}
 			g2.setColor(new Color(214, 132, 0));
-			g2.setFont(new Font(Font.SERIF, Font.PLAIN, 35));
-			g2.drawString("" + Core.score, 900, 50);
+			g2.setFont(new Font(Font.SERIF, Font.PLAIN, scaled(35)));
+			g2.drawString("" + Core.score, scaled(900), scaled(50));
 			g.drawImage(buffer, 0, 0, null);
 		}
+	}
+	
+	public static int scaled(double size) {
+		return (int) (size * Display.SCALE);
 	}
 	
 	public void gameOver() {
@@ -67,7 +72,8 @@ public class DisplayPanel extends JPanel {
 				}
 			}
 		});
-		restartButton.setBounds(425, 475, BUTTON_WIDTH, BUTTON_HEIGHT);
+		restartButton.setBounds(scaled(425), scaled(475), 
+				scaled(BUTTON_WIDTH), scaled(BUTTON_HEIGHT));
 		add(restartButton);
 		
 		
@@ -78,7 +84,8 @@ public class DisplayPanel extends JPanel {
 				System.exit(1);
 			}
 		});
-		endButton.setBounds(425, 525, BUTTON_WIDTH, BUTTON_HEIGHT);
+		endButton.setBounds(scaled(425), scaled(525),
+				scaled(BUTTON_WIDTH), scaled(BUTTON_HEIGHT));
 		add(endButton);
 	}
 	
@@ -106,8 +113,8 @@ public class DisplayPanel extends JPanel {
 		int[] xPoints = new int[points];
 		int[] yPoints = new int[points];
 		double angle = Math.toRadians(Control.player.getAngle() + 90 + 45);
-		double size = 200;
-		int halfScreen = 500;
+		double size = scaled(200);
+		int halfScreen = scaled(500);
 		double x = size * Math.toDegrees(Math.cos(angle));
 		double y = size * Math.toDegrees(Math.sin(angle));
 		xPoints[0] = (int) x + halfScreen;
@@ -125,7 +132,7 @@ public class DisplayPanel extends JPanel {
 		xPoints[2] = (int) x + halfScreen;
 		yPoints[2] = (int) y + halfScreen;
 		
-		double smallSize = .6;
+		double smallSize = .6 * Display.SCALE;
 		angle = Math.toRadians(Control.player.getAngle() + 45);
 		x = smallSize * Math.toDegrees(Math.cos(angle));
 		y = smallSize * Math.toDegrees(Math.sin(angle));

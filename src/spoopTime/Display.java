@@ -10,7 +10,7 @@ public class Display extends Thread {
 	public static Point2D currentLoc = new Point2D.Double(0, 0);
 	
 	private static DisplayPanel panel;
-	public static final double SCALE = 1;
+	public static double SCALE = 1;
 	public static final double REFRESH_RATE = 60;
 	public static final long MILLISECONDS_TO_SLEEP = (long) (1000/REFRESH_RATE);
 	public static final Color ORANGE = new Color(214, 132, 0);

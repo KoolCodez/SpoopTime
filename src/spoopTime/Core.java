@@ -40,7 +40,7 @@ public class Core {
 		System.out.println("beginning setup");
 		JFrame temp = new JFrame("Setup");
 		temp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		temp.setSize((int) (500 * Display.SCALE + 16), (int) (500 * Display.SCALE + 38));
+		temp.setSize(516, 538);
 		temp.setVisible(true);
 		SetUpPanel panel = new SetUpPanel();
 		temp.add(panel);

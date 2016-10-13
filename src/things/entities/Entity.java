@@ -8,6 +8,7 @@ import java.awt.geom.Point2D;
 import javax.swing.JLabel;
 
 import spoopTime.Display;
+import spoopTime.DisplayPanel;
 import spoopTime.TextureUtil;
 import spoopTime.World;
 import things.Thing;
@@ -83,11 +84,14 @@ public class Entity extends Thing {
 	
 	@Override
 	public void draw(Graphics g, Point2D reference) {
-		int drawX = (int) ((outline.getX() - reference.getX()) * Display.SCALE);
-		int drawY = (int) ((outline.getY() - reference.getY()) * Display.SCALE);
+		int drawX = DisplayPanel.scaled(outline.getX() - reference.getX());
+		int drawY = DisplayPanel.scaled(outline.getY() - reference.getY());
 		g.setColor(Color.red);
-		g.fillRect(drawX, drawY - 20, (int) (outline.getWidth() * health/maxHealth), 10);
+		g.fillRect(drawX, drawY - DisplayPanel.scaled(20), 
+				DisplayPanel.scaled(outline.getWidth() * health/maxHealth), 
+				DisplayPanel.scaled(10));
 		g.drawImage(TextureUtil.rotate(image, (int) angle, outline), drawX, drawY, 
-				 null);
+				DisplayPanel.scaled(outline.getWidth()), 
+				DisplayPanel.scaled(outline.getHeight()), null);
 	}
 }

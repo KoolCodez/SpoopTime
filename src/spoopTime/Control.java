@@ -81,16 +81,16 @@ public class Control {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				Point p = new Point((int) ((e.getPoint().x + Display.currentLoc.getX()) / Display.SCALE),
-						(int) ((e.getPoint().y + Display.currentLoc.getY()) / Display.SCALE));
+				Point p = new Point((int) ((e.getPoint().x /Display.SCALE + Display.currentLoc.getX())),
+						(int) (e.getPoint().y/Display.SCALE + Display.currentLoc.getY()));
 				player.faceToward(p);
 
 			}
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				Point p = new Point((int) ((e.getPoint().x + Display.currentLoc.getX()) / Display.SCALE),
-						(int) ((e.getPoint().y + Display.currentLoc.getY()) / Display.SCALE));
+				Point p = new Point((int) (e.getPoint().x/Display.SCALE + Display.currentLoc.getX()),
+						(int) (e.getPoint().y/ Display.SCALE + Display.currentLoc.getY()));
 				player.faceToward(p);
 
 			}
