@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.geom.RectangularShape;
 
 import spoopTime.Control;
@@ -84,7 +85,10 @@ public class Projectile extends Thing {
 				return false;
 			}
 		}
-		return outline.intersects(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+		Ellipse2D e = getOutline();
+		RectangularShape temp = new Rectangle2D.Double(e.getX(), e.getY(), 
+				e.getWidth() * .75, e.getHeight() * .75);
+		return temp.intersects(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
 	}
 	
 	@Override

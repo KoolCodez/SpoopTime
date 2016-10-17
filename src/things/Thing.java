@@ -46,7 +46,7 @@ public class Thing {
 	public boolean checkCollision(RectangularShape shape, Thing thing) {
 		Ellipse2D e = getOutline();
 		RectangularShape temp = new Rectangle2D.Double(e.getX(), e.getY(), 
-				e.getWidth(), e.getHeight());
+				e.getWidth() * .75, e.getHeight() * .75);
 		return temp.intersects(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
 	}
 	

@@ -55,7 +55,7 @@ public class World {
 		if (layers[thing.layer].things.contains(thing)) {
 			Ellipse2D e = thing.getOutline();
 			RectangularShape temp = new Rectangle2D.Double(e.getX() + deltaX, e.getY() + deltaY, 
-					e.getWidth(), e.getHeight());
+					e.getWidth() * .75, e.getHeight()* .75);
 			return layers[thing.layer].legalMove(temp, thing);
 		}
 		return true;
@@ -85,13 +85,13 @@ public class World {
 		int startingX, startingY;
 		startingX = -size / 2;
 		startingY = -size / 2;
-		Wall leftWall = new Wall(startingX, startingY, 20, size/1.4);
+		Wall leftWall = new Wall(startingX, startingY, 20, size/1.38);
 		addLayer(leftWall, 1);
-		Wall upWall = new Wall(startingX, startingY, size/1.4, 20);
+		Wall upWall = new Wall(startingX, startingY, size/1.38, 20);
 		addLayer(upWall, 1);
-		Wall rightWall = new Wall(startingX + size, startingY, 20, size/1.4);
+		Wall rightWall = new Wall(startingX + size, startingY, 20, size/1.38);
 		addLayer(rightWall, 1);
-		Wall downWall = new Wall(startingX, startingY + size, size/1.4, 20);
+		Wall downWall = new Wall(startingX, startingY + size, size/1.38, 20);
 		addLayer(downWall, 1);
 	}
 	

@@ -23,8 +23,8 @@ public class Spawner extends Entity {
 		createThread();
 		setHealth(40.0);
 	}
-	private static final double DIFFICULTY_CONSTANT = 1000;
-	private static final double MAX_SPAWN = 500;
+	private static final double DIFFICULTY_CONSTANT = 2000;
+	private static final double MAX_SPAWN = 100 * World.getSize() / 1000;
 	protected void createThread() {
 		t = new Thread() {
 			@Override
