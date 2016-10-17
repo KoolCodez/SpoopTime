@@ -12,6 +12,7 @@ import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import things.Thing;
 
@@ -26,6 +27,8 @@ public class DisplayPanel extends JPanel {
 		BufferedImage buffer = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_ARGB);
 		
 		Graphics g2 = buffer.getGraphics();
+		g2.setColor(Display.BORDER_ORANGE);
+		g2.fillRect(0, 0, 2000, 2000);
 		if (gameOverMode) {
 			g.setColor(Color.black);
 			g.fillRect(0, 0, scaled(1000), scaled(1000));
@@ -33,9 +36,9 @@ public class DisplayPanel extends JPanel {
 			g.setFont(new Font(Font.SERIF, Font.PLAIN, scaled(100)));
 			g.drawString("GAME OVER", scaled(200), scaled(300));
 			g.setFont(new Font(Font.SERIF, Font.PLAIN, scaled(20)));
-			g.drawString("Score: ", scaled(400), scaled(400));
+			g.drawString("Score:", scaled(400), scaled(400));
 			g.setFont(new Font(Font.SERIF, Font.PLAIN, scaled(35)));
-			g.drawString("\t\t" + Core.score, scaled(450), scaled(400));
+			g.drawString("    " + Core.score, scaled(450), scaled(400));
 		} else {
 			drawBackGround(g2);
 			drawThings(g2);
@@ -74,6 +77,8 @@ public class DisplayPanel extends JPanel {
 		});
 		restartButton.setBounds(scaled(425), scaled(475), 
 				scaled(BUTTON_WIDTH), scaled(BUTTON_HEIGHT));
+		restartButton.setBackground(Display.ORANGE);
+		restartButton.setBorder(new LineBorder(Display.BORDER_ORANGE, 4));
 		add(restartButton);
 		
 		
@@ -86,6 +91,8 @@ public class DisplayPanel extends JPanel {
 		});
 		endButton.setBounds(scaled(425), scaled(525),
 				scaled(BUTTON_WIDTH), scaled(BUTTON_HEIGHT));
+		endButton.setBackground(Display.ORANGE);
+		endButton.setBorder(new LineBorder(Display.BORDER_ORANGE, 4));
 		add(endButton);
 	}
 	

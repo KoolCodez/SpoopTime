@@ -1,6 +1,8 @@
 package spoopTime;
 
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RectangularShape;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -52,7 +54,8 @@ public class World {
 	public static boolean legalMove(double deltaX, double deltaY, Thing thing) {
 		if (layers[thing.layer].things.contains(thing)) {
 			Ellipse2D e = thing.getOutline();
-			Ellipse2D temp = new Ellipse2D.Double(e.getX() + deltaX, e.getY() + deltaY, e.getWidth(), e.getHeight());
+			RectangularShape temp = new Rectangle2D.Double(e.getX() + deltaX, e.getY() + deltaY, 
+					e.getWidth(), e.getHeight());
 			return layers[thing.layer].legalMove(temp, thing);
 		}
 		return true;
@@ -94,15 +97,13 @@ public class World {
 	
 	public static void createGraves(double ratioPerSquareThousand) {
 		int startingX, startingY;
-		startingX = -size / 2;
-		startingY = -size / 2;
 		double squareThousands = (size / 1000) * (size / 1000);
 		totalGraves = (int) (ratioPerSquareThousand * squareThousands * Core.difficulty / 20);
 		System.out.println(squareThousands);
 		System.out.println(totalGraves);
 		for (int i = 0; i < totalGraves; i++) {
-			double x = startingX + Math.random()*size;
-			double y = startingY + Math.random()*size;
+			double x = findRandomLoc();
+			double y = findRandomLoc();
 			int randomNum = (int) (Math.random() * 3);
 			Spawner enemySpawn = new Grave(x - 20, y, randomNum);
 			World.addLayer(enemySpawn, 1);
@@ -110,6 +111,13 @@ public class World {
 			World.addLayer(new Dirt(x, y + Dirt.SIZE * 2), 0);
 		}
 		createGraveChecker();
+	}
+	
+	private static double findRandomLoc() {
+		double realSize = size - 100;
+		double starting = -realSize / 2;
+		double randomized = starting + Math.random()*realSize;
+		return randomized;
 	}
 	
 	public static int getTotalGraves() {

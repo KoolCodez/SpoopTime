@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.RectangularShape;
 
 import spoopTime.Control;
 import spoopTime.Core;
@@ -77,7 +78,7 @@ public class Projectile extends Thing {
 	}
 	
 	@Override
-	public boolean checkCollision(Ellipse2D shape, Thing thing) {
+	public boolean checkCollision(RectangularShape shape, Thing thing) {
 		if (thing instanceof Projectile) {
 			if (((Projectile) thing).shooter.equals(this.shooter)) {
 				return false;

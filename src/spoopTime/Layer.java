@@ -1,6 +1,7 @@
 package spoopTime;
 
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.RectangularShape;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,7 +16,7 @@ public class Layer {
 	public List<Thing> thingsOld = new ArrayList<Thing>();
 	public List<Thing> things = new CopyOnWriteArrayList<Thing>();
 	
-	public boolean legalMove(Ellipse2D outline, Thing thing) {
+	public boolean legalMove(RectangularShape outline, Thing thing) {
 		
 		for (Iterator<Thing> iterator = things.iterator(); iterator.hasNext(); ) {
 			Thing t = iterator.next();

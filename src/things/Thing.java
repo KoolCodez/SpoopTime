@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RectangularShape;
 import java.awt.image.BufferedImage;
 
 import spoopTime.Display;
@@ -42,8 +43,11 @@ public class Thing {
 		outline = new Ellipse2D.Double(outline.getX() + deltaX, outline.getY() + deltaY, outline.getWidth(), outline.getHeight());
 	}
 	
-	public boolean checkCollision(Ellipse2D shape, Thing thing) {
-		return outline.intersects(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+	public boolean checkCollision(RectangularShape shape, Thing thing) {
+		Ellipse2D e = getOutline();
+		RectangularShape temp = new Rectangle2D.Double(e.getX(), e.getY(), 
+				e.getWidth(), e.getHeight());
+		return temp.intersects(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
 	}
 	
 	public void draw(Graphics g, Point2D reference) {
