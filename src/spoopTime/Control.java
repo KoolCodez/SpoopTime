@@ -29,7 +29,8 @@ public class Control {
 		addClickListener();
 		MovementController movement = new MovementController(controlPanel);
 	}
-
+	
+	private static boolean healing = false;
 	private void addClickListener() {
 		MouseListener l = new MouseListener() {
 			@Override
@@ -40,13 +41,27 @@ public class Control {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
+				if (e.getButton() == MouseEvent.BUTTON3 && !healing) {
+					healing = true;
+					Thread t = new Thread() {
+						@Override
+						public void run() {
+							heal();
+							
+						}
+					};
+					t.start();
+				}
 
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				fireBall();
+				if (e.getButton() == MouseEvent.BUTTON1) {
+					fireBall();
+				} else if (e.getButton() == MouseEvent.BUTTON3) {
+					healing = false;
+				}
 			}
 
 			@Override
@@ -57,7 +72,7 @@ public class Control {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
+				
 
 			}
 
@@ -74,6 +89,20 @@ public class Control {
 		World.addLayer(f, 1);
 		f.startMoving(player.getAngle());
 		Core.score--;
+	}
+	
+	private static void heal() {
+		while (healing) {
+			if (player.heal(.5)) {
+				Core.score -= 1;
+			}
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private void addMotionListener() {

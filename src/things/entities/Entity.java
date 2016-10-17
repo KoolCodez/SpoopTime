@@ -77,6 +77,14 @@ public class Entity extends Thing {
 		}
 	}
 	
+	public boolean heal(double heal) {
+		if (health + heal <= maxHealth) {
+			health += heal;
+			return true;
+		}
+		return false;
+	}
+	
 	protected void kill() {
 		health = 0;
 		World.destroy(this);
