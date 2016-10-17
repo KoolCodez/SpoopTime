@@ -11,19 +11,28 @@ import things.Thing;
 
 public class NPC extends Entity {
 	private Thread thread;
-	private int value = 10;
+	protected int value = 10;
+	protected double damage;
 	
-	private static final double SPEED_CONSTANT = 4;
+	
 	public NPC(double x, double y, double width, double height, String imagePath) {
 		super(x, y, width, height, imagePath);
-		speed = SPEED_CONSTANT;
+		speed = 4;
+		damage = 1;
+	}
+	
+	public NPC(double x, double y, double width, double height, String imagePath, double speed, double damage, double health) {
+		super(x, y, width, height, imagePath);
+		this.speed = speed;
+		this.damage = damage;
+		this.setHealth(health);
 	}
 	
 	@Override
 	public void collide(Thing thing) {
 		if (thing instanceof Player) {
 			Entity temp = (Entity) thing;
-			temp.damage(.1);
+			temp.damage(damage/10.0);
 		}
 	}
 	

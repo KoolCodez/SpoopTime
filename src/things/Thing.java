@@ -13,16 +13,18 @@ import spoopTime.TextureUtil;
 public class Thing {
 	protected Ellipse2D outline;
 	protected BufferedImage image;
+	public double realWidth;
+	public double realHeight;
 	public int layer = 0;
 	public Thing() {
 		outline = new Ellipse2D.Double();
-		
-		
 	}
 	
 	public Thing(double x, double y, double width, double height, String imagePath) {
 		outline = new Ellipse2D.Double(x, y, Math.sqrt(2 * width * width), Math.sqrt(2 * height * height));
 		this.image = TextureUtil.loadImage(imagePath, width, height, false);
+		realWidth = width;
+		realHeight = height;
 	}
 	
 	public Point2D getLoc() {

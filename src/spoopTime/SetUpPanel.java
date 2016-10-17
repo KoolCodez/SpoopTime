@@ -83,7 +83,7 @@ public class SetUpPanel extends JPanel {
 	}
 	
 	private void createSizeSlider() {
-		JSlider sizeSlider = new JSlider(1000, 11000);
+		JSlider sizeSlider = new JSlider(1000, 6000);
 		sizeSlider.setBounds(175, 375, BUTTON_WIDTH, BUTTON_HEIGHT);
 		sizeSlider.setBackground(Color.black);
 		add(sizeSlider);

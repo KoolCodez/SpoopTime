@@ -10,6 +10,7 @@ import things.entities.Zombie;
 public class Spawner extends Entity {
 	private Thread t;
 	private int value = 50;
+	protected int level = 0;
 	
 	public Spawner(double x, double y, double width, double height, String imagePath) {
 		super(x, y, width, height, imagePath);
@@ -22,14 +23,15 @@ public class Spawner extends Entity {
 		createThread();
 		setHealth(40.0);
 	}
-	private static final double DIFFICULTY_CONSTANT = 50e7;
-	private static final double MAX_SPAWN = 1000;
-	private void createThread() {
+	private static final double DIFFICULTY_CONSTANT = 1000;
+	private static final double MAX_SPAWN = 500;
+	protected void createThread() {
 		t = new Thread() {
 			@Override
 			public void run() {
 				while (health > 0) {
-					if ((Math.random() * DIFFICULTY_CONSTANT / (World.getSize()*2)) < Core.difficulty &&
+					double randomTicks = (Math.random() * DIFFICULTY_CONSTANT * (World.getTotalGraves() + level*2));
+					if (randomTicks < Core.difficulty &&
 							World.layers[1].things.size() <= MAX_SPAWN) {
 						spawn();
 					}
@@ -59,6 +61,12 @@ public class Spawner extends Entity {
 		Core.score += value;
 		World.addLayer(new DeadGrave(getLoc().getX(), getLoc().getY(), this), layer);
 		World.destroy(this);
+	}
+	
+	public void respawn() {
+		health = maxHealth;
+		level++;
+		World.addLayer(this, layer);
 	}
 
 }

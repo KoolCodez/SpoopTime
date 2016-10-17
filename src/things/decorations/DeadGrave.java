@@ -2,18 +2,28 @@ package things.decorations;
 
 import spoopTime.World;
 import things.Thing;
-import things.spawners.RandomGrave;
+import things.spawners.Grave;
 import things.spawners.Spawner;
 
 public class DeadGrave extends Thing {
 	
+	Spawner spawner;
+	
 	public DeadGrave(double x, double y, Spawner spawn) {
-		super(x, y, spawn.getOutline().getWidth(), 
-				spawn.getOutline().getHeight(), "Skull.png");
+		super(x, y, spawn.realWidth, spawn.realHeight, getImage(spawn));
+		spawner = spawn;
+	}
+	
+	private static String getImage(Spawner s) {
+		if (s instanceof Grave) {
+			return ((Grave) s).getDeadPath();
+		} else {
+			return "Skull.png";
+		}
 	}
 	
 	public void respawn() {
 		World.destroy(this);
-		World.addLayer(new RandomGrave(getLoc().getX(), getLoc().getY()), layer);
+		spawner.respawn();
 	}
 }

@@ -14,6 +14,7 @@ import things.decorations.Wall;
 import things.entities.Entity;
 import things.entities.NPC;
 import things.projectiles.Projectile;
+import things.spawners.Grave;
 import things.spawners.Grave1;
 import things.spawners.Grave2;
 import things.spawners.Grave3;
@@ -22,7 +23,8 @@ import things.spawners.Spawner;
 public class World {
 	public static Layer[] layers = { new Layer(), new Layer(), new Layer() };
 	private static List<MoveToken> moveList = new CopyOnWriteArrayList<MoveToken>();
-	private static int size = 6000;
+	private static int size = 3500;
+	private static int totalGraves;
 	
 	public static void addLayer(Thing thing, int layer) {
 		layers[layer].things.add(thing);
@@ -94,18 +96,24 @@ public class World {
 		int startingX, startingY;
 		startingX = -size / 2;
 		startingY = -size / 2;
-		int number = (int) (ratioPerSquareThousand * (size / 1000) * Core.difficulty / 10);
-		System.out.println(ratioPerSquareThousand * (size / 1000));
-		System.out.println(number);
-		for (int i = 0; i < number; i++) {
+		double squareThousands = (size / 1000) * (size / 1000);
+		totalGraves = (int) (ratioPerSquareThousand * squareThousands * Core.difficulty / 20);
+		System.out.println(squareThousands);
+		System.out.println(totalGraves);
+		for (int i = 0; i < totalGraves; i++) {
 			double x = startingX + Math.random()*size;
 			double y = startingY + Math.random()*size;
-			Spawner enemySpawn = randomGrave(x - 20, y);
+			int randomNum = (int) (Math.random() * 3);
+			Spawner enemySpawn = new Grave(x - 20, y, randomNum);
 			World.addLayer(enemySpawn, 1);
 			World.addLayer(new Dirt(x, y + Dirt.SIZE), 0);
 			World.addLayer(new Dirt(x, y + Dirt.SIZE * 2), 0);
 		}
 		createGraveChecker();
+	}
+	
+	public static int getTotalGraves() {
+		return totalGraves;
 	}
 	
 	private static void createGraveChecker() {
@@ -140,22 +148,6 @@ public class World {
 				((DeadGrave) thing).respawn();
 			}
 		}
-	}
-	
-	private static Spawner randomGrave(double x, double y) {
-		int rand = (int) (Math.random() * 3);
-		Spawner spawn;
-		switch (rand) {
-		case 0: spawn = new Grave1(x, y);
-			break;
-		case 1: spawn = new Grave2(x, y);
-			break;
-		case 2: spawn = new Grave3(x, y);
-			break;
-		default: spawn = new Grave1(x, y);
-			break;
-		}
-		return spawn;
 	}
 	
 	public static void destroy(Thing thing) {
