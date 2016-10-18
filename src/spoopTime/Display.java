@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.util.ConcurrentModificationException;
 
-import javax.swing.JPanel;
-
 public class Display extends Thread {
 	public static Point2D currentLoc = new Point2D.Double(0, 0);
 	
@@ -80,6 +78,7 @@ public class Display extends Thread {
 				e.printStackTrace();
 			}
 		}
-		
 	}
+	
+	
 }

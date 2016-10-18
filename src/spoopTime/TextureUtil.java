@@ -31,7 +31,7 @@ public class TextureUtil {
 	public static BufferedImage loadImage(String pathFromTextures, double width, double height, boolean scale) {
 		Image i;
 		try {
-			String name = "/Textures/" + pathFromTextures;
+			String name = "/Resources/Textures/" + pathFromTextures;
 			URL url = TextureUtil.class.getResource(name);
 			i = ImageIO.read(url);
 		} catch (IOException e) {

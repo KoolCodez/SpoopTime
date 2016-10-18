@@ -1,14 +1,9 @@
 package spoopTime;
 
-import java.awt.Canvas;
-
+import javax.sound.sampled.AudioSystem;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-import things.entities.Entity;
-import things.entities.NPC;
 import things.entities.Player;
-import things.spawners.Spawner;
 
 public class Core {
 	public static JFrame frame;
@@ -20,6 +15,7 @@ public class Core {
 	public static int score = 0;
 	
 	public static void main(String[] args) {
+		SoundUtil.playSound("SpoopySkeletons.wav");
 		setupMode();
 		setUpWorld();
 		
