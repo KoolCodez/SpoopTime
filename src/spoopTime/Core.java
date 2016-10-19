@@ -1,6 +1,5 @@
 package spoopTime;
 
-import javax.sound.sampled.AudioSystem;
 import javax.swing.JFrame;
 
 import things.entities.Player;
@@ -14,8 +13,10 @@ public class Core {
 	public static double difficulty = 60;
 	public static int score = 0;
 	
+	private static String[] playList = {"SpoopySkeletons.mp3", "MonsterMash.mp3"};
+	
 	public static void main(String[] args) {
-		SoundUtil.playSound("SpoopySkeletons.wav");
+		SoundUtil.playPlaylist(playList);
 		setupMode();
 		setUpWorld();
 		
