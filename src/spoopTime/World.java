@@ -32,8 +32,8 @@ public class World {
 		layers[layer].things.add(thing);
 		thing.layer = layer;
 		if (!exempt(thing)) {
-			if (!legalMove(0, 0, thing)) {
-				layers[layer].things.remove(thing);
+			while (!legalMove(0, 0, thing)) {
+				thing.changePos(10, 10);
 			}
 		}
 	}
@@ -118,7 +118,7 @@ public class World {
 	}
 	
 	private static double findRandomLoc() {
-		double realSize = size * .9;
+		double realSize = size - 200;
 		double starting = -realSize / 2;
 		double randomized = starting + Math.random()*realSize;
 		return randomized;
