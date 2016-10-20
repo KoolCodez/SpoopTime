@@ -92,7 +92,7 @@ public class Control {
 	}
 	
 	private static void heal() {
-		while (healing) {
+		while (healing && Core.score > 0) {
 			if (player.heal(.5)) {
 				Core.score -= 1;
 			}

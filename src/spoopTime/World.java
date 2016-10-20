@@ -25,7 +25,7 @@ import things.spawners.Spawner;
 public class World {
 	public static Layer[] layers = { new Layer(), new Layer(), new Layer() };
 	private static List<MoveToken> moveList = new CopyOnWriteArrayList<MoveToken>();
-	private static int size = 10000;
+	private static int size = 3500;
 	private static int totalGraves;
 	
 	public static void addLayer(Thing thing, int layer) {
@@ -66,8 +66,8 @@ public class World {
 		startingX = -size / 2;
 		startingY = -size / 2;
 		int newSize = size / Grass.SIZE;
-		for (int i = 0; i < newSize; i++) {
-			for (int j = 0; j < newSize; j++) {
+		for (int i = 0; i <= newSize; i++) {
+			for (int j = 0; j <= newSize; j++) {
 				layers[0].things.add(new Grass(startingX + i*Grass.SIZE, startingY + j*Grass.SIZE));
 			}
 		}
@@ -85,18 +85,23 @@ public class World {
 		int startingX, startingY;
 		startingX = -size / 2;
 		startingY = -size / 2;
-		Wall leftWall = new Wall(startingX, startingY, 20, size/1.38);
-		addLayer(leftWall, 1);
-		Wall upWall = new Wall(startingX, startingY, size/1.38, 20);
-		addLayer(upWall, 1);
-		Wall rightWall = new Wall(startingX + size, startingY, 20, size/1.38);
-		addLayer(rightWall, 1);
-		Wall downWall = new Wall(startingX, startingY + size, size/1.38, 20);
-		addLayer(downWall, 1);
+		makeWall(startingX, startingY, 50, size); //leftWall
+		makeWall(startingX + size, startingY, 50, size); //rightWall
+		makeWall(startingX, startingY, size, 50); //topWall
+		makeWall(startingX, startingY + size, size, 50); //bottomWall
+		Wall patch = new Wall(startingX + size, startingY + size, 50, 50);
+		addLayer(patch, 1);
+	}
+	public static void makeWall(double x, double y, double width, double height) {
+		for (int row = 0; row < width; row += 50) {
+			for (int col = 0; col < height; col += 50) {
+				Wall w = new Wall(x + row, y + col, 50, 50);
+				addLayer(w, 1);
+			}
+		}
 	}
 	
 	public static void createGraves(double ratioPerSquareThousand) {
-		int startingX, startingY;
 		double squareThousands = (size / 1000) * (size / 1000);
 		totalGraves = (int) (ratioPerSquareThousand * squareThousands * Core.difficulty / 20);
 		System.out.println(squareThousands);
@@ -114,7 +119,7 @@ public class World {
 	}
 	
 	private static double findRandomLoc() {
-		double realSize = size - 100;
+		double realSize = size * .9;
 		double starting = -realSize / 2;
 		double randomized = starting + Math.random()*realSize;
 		return randomized;
