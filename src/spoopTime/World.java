@@ -48,6 +48,9 @@ public class World {
 		if (thing instanceof DeadGrave) {
 			return true;
 		}
+		if (thing instanceof Projectile) {
+			return true;
+		}
 		return false;
 	}
 
