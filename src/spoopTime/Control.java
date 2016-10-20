@@ -1,6 +1,8 @@
 package spoopTime;
 
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -11,6 +13,7 @@ import javax.swing.JPanel;
 import movement.MovementController;
 import things.entities.Entity;
 import things.projectiles.FireBall;
+import things.projectiles.ShockWave;
 
 public class Control {
 
@@ -27,7 +30,34 @@ public class Control {
 		Core.frame.add(controlPanel);
 		addMotionListener();
 		addClickListener();
+		addKeyListener();
 		MovementController movement = new MovementController(controlPanel);
+	}
+	
+	private void addKeyListener() {
+		KeyListener keyL = new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyChar() == 'e') {
+					shockWave();
+				}
+				
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		Core.frame.addKeyListener(keyL);
 	}
 	
 	private static boolean healing = false;
@@ -86,6 +116,17 @@ public class Control {
 		double deltaY = player.getOutline().getWidth() * 1.25 * Math.sin(Math.toRadians(player.getAngle() - 90));
 		point.setLocation(point.getX() + deltaX, point.getY() + deltaY);
 		FireBall f = new FireBall(point.getX(), point.getY(), Control.player);
+		World.addLayer(f, 1);
+		f.startMoving(player.getAngle());
+		Core.score--;
+	}
+	
+	private static void shockWave() {
+		Point2D point = player.getLoc();
+		double deltaX = player.getOutline().getWidth() * 1.25 * Math.cos(Math.toRadians(player.getAngle() - 90));
+		double deltaY = player.getOutline().getWidth() * 1.25 * Math.sin(Math.toRadians(player.getAngle() - 90));
+		point.setLocation(point.getX() + deltaX, point.getY() + deltaY);
+		ShockWave f = new ShockWave(point.getX(), point.getY(), Control.player);
 		World.addLayer(f, 1);
 		f.startMoving(player.getAngle());
 		Core.score--;

@@ -20,6 +20,7 @@ public class Projectile extends Thing {
 	double angle = 0;
 	double speed = 0;
 	public Thing shooter;
+	protected double impactDamage = 5;
 
 	public Projectile(double x, double y, double width, double height, String imagePath, Thing shooter) {
 		super(x, y, width, height, imagePath);
@@ -62,7 +63,7 @@ public class Projectile extends Thing {
 		t.start();
 	}
 
-	private void move() {
+	protected void move() {
 		double deltaX;
 		double deltaY;
 		double theta = Math.toRadians(angle - 90);
@@ -103,7 +104,7 @@ public class Projectile extends Thing {
 			speed = 0;
 		}
 		if (thing instanceof Entity && thing != shooter) {
-			((Entity) thing).damage(5);
+			((Entity) thing).damage(impactDamage);
 		}
 	}
 
