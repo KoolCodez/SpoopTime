@@ -20,20 +20,22 @@ public class Projectile extends Thing {
 	double angle = 0;
 	double speed = 0;
 	public Thing shooter;
+
 	public Projectile(double x, double y, double width, double height, String imagePath, Thing shooter) {
 		super(x, y, width, height, imagePath);
 		this.shooter = shooter;
-		
+
 	}
-	
+
 	public void startMoving(double direction, double speed) {
 		angle = direction;
 		this.speed = speed;
 		createThread();
 	}
+
 	private static final double SPEED_DECREMENT = .1;
 	private static final double MIN_SPEED = 2;
-	
+
 	private void createThread() {
 		Projectile p = this;
 		Thread t = new Thread() {
@@ -41,12 +43,12 @@ public class Projectile extends Thing {
 			public void run() {
 				while (speed > MIN_SPEED) {
 					move();
-					
+
 					speed -= SPEED_DECREMENT;
 					try {
 						synchronized (Core.display) {
 							Core.display.wait();
-						} 
+						}
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -59,7 +61,7 @@ public class Projectile extends Thing {
 		};
 		t.start();
 	}
-	
+
 	private void move() {
 		double deltaX;
 		double deltaY;
@@ -70,14 +72,14 @@ public class Projectile extends Thing {
 			if (World.legalMove(deltaX, deltaY, this)) {
 				changePos(deltaX, deltaY);
 			}
-		} catch(java.util.ConcurrentModificationException e) {
+		} catch (java.util.ConcurrentModificationException e) {
 			e.printStackTrace();
-		} catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	@Override
 	public boolean checkCollision(RectangularShape shape, Thing thing) {
 		if (thing instanceof Projectile) {
@@ -86,11 +88,10 @@ public class Projectile extends Thing {
 			}
 		}
 		Ellipse2D e = getOutline();
-		RectangularShape temp = new Rectangle2D.Double(e.getX(), e.getY(), 
-				e.getWidth() * .75, e.getHeight() * .75);
+		RectangularShape temp = new Rectangle2D.Double(e.getX(), e.getY(), e.getWidth() * .75, e.getHeight() * .75);
 		return temp.intersects(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
 	}
-	
+
 	@Override
 	public void collide(Thing thing) {
 		if (thing instanceof Projectile) {
@@ -105,14 +106,13 @@ public class Projectile extends Thing {
 			((Entity) thing).damage(5);
 		}
 	}
-	
+
 	@Override
 	public void draw(Graphics g, Point2D reference) {
 		int drawX = DisplayPanel.scaled(outline.getX() - reference.getX());
 		int drawY = DisplayPanel.scaled(outline.getY() - reference.getY());
-		g.drawImage(TextureUtil.rotate(image, (int) angle, outline), drawX, drawY, 
-				DisplayPanel.scaled(outline.getWidth()), 
-				DisplayPanel.scaled(outline.getHeight()), null);
+		g.drawImage(TextureUtil.rotate(image, (int) angle, outline), drawX, drawY,
+				DisplayPanel.scaled(outline.getWidth()), DisplayPanel.scaled(outline.getHeight()), null);
 	}
 
 }

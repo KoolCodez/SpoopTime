@@ -108,7 +108,15 @@ public class DisplayPanel extends JPanel {
 	private void drawThings(Graphics g) {
 		for (int i = 0; i < 3; i++) {
 			for (Iterator<Thing> it = World.layers[i].things.iterator(); it.hasNext(); ) {
-				it.next().draw(g, Display.currentLoc);
+				Point2D p = new Point2D.Double();
+				try {
+					p = Control.player.getLoc();
+				} catch (NullPointerException e) {
+				}
+				Thing thing = it.next();
+				if (thing.isWithinScreen(p)) {
+					thing.draw(g, Display.currentLoc);
+				}
 			}
 		}
 	}

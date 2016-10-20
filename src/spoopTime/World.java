@@ -25,7 +25,7 @@ import things.spawners.Spawner;
 public class World {
 	public static Layer[] layers = { new Layer(), new Layer(), new Layer() };
 	private static List<MoveToken> moveList = new CopyOnWriteArrayList<MoveToken>();
-	private static int size = 3500;
+	private static int size = 10000;
 	private static int totalGraves;
 	
 	public static void addLayer(Thing thing, int layer) {
