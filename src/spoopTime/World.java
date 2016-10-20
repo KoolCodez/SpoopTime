@@ -65,10 +65,9 @@ public class World {
 		int startingX, startingY;
 		startingX = -size / 2;
 		startingY = -size / 2;
-		int newSize = size / Grass.SIZE;
-		for (int i = 0; i <= newSize; i++) {
-			for (int j = 0; j <= newSize; j++) {
-				layers[0].things.add(new Grass(startingX + i*Grass.SIZE, startingY + j*Grass.SIZE));
+		for (int i = 0; i < size; i+= Grass.SIZE) {
+			for (int j = 0; j < size; j+= Grass.SIZE) {
+				layers[0].things.add(new Grass(startingX + i, startingY + j));
 			}
 		}
 	}
