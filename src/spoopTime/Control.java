@@ -33,22 +33,29 @@ public class Control {
 		addKeyListener();
 		MovementController movement = new MovementController(controlPanel);
 	}
-	
+	private static boolean healing = false;
 	private void addKeyListener() {
 		KeyListener keyL = new KeyListener() {
 
 			@Override
-			public void keyPressed(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-				
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyChar() == 'e' && !healing) {
+					healing = true;
+					Thread t = new Thread() {
+						@Override
+						public void run() {
+							heal();
+						}
+					};
+					t.start();
+				}
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyChar() == 'e') {
-					shockWave();
+					healing = false;
 				}
-				
 			}
 
 			@Override
@@ -60,7 +67,7 @@ public class Control {
 		Core.frame.addKeyListener(keyL);
 	}
 	
-	private static boolean healing = false;
+	private static boolean firing = false;
 	private void addClickListener() {
 		MouseListener l = new MouseListener() {
 			@Override
@@ -71,26 +78,24 @@ public class Control {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if (e.getButton() == MouseEvent.BUTTON3 && !healing) {
-					healing = true;
+				if (e.getButton() == MouseEvent.BUTTON3) {
+					firing = true;
 					Thread t = new Thread() {
 						@Override
 						public void run() {
-							heal();
-							
+							shockWave();
 						}
 					};
 					t.start();
 				}
-
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if (e.getButton() == MouseEvent.BUTTON1) {
+				if (e.getButton() == MouseEvent.BUTTON1 && !firing) {
 					fireBall();
-				} else if (e.getButton() == MouseEvent.BUTTON3) {
-					healing = false;
+				} else if(e.getButton() == MouseEvent.BUTTON3) {
+					firing = false;
 				}
 			}
 
@@ -122,14 +127,23 @@ public class Control {
 	}
 	
 	private static void shockWave() {
-		Point2D point = player.getLoc();
-		double deltaX = player.getOutline().getWidth() * 1.25 * Math.cos(Math.toRadians(player.getAngle() - 90));
-		double deltaY = player.getOutline().getWidth() * 1.25 * Math.sin(Math.toRadians(player.getAngle() - 90));
-		point.setLocation(point.getX() + deltaX, point.getY() + deltaY);
-		ShockWave f = new ShockWave(point.getX(), point.getY(), Control.player);
-		World.addLayer(f, 1);
-		f.startMoving(player.getAngle());
-		Core.score--;
+		while (firing) {
+			Point2D point = player.getLoc();
+			double deltaX = player.getOutline().getWidth() * 1.25 * Math.cos(Math.toRadians(player.getAngle() - 90));
+			double deltaY = player.getOutline().getWidth() * 1.25 * Math.sin(Math.toRadians(player.getAngle() - 90));
+			point.setLocation(point.getX() + deltaX, point.getY() + deltaY);
+			ShockWave f = new ShockWave(point.getX(), point.getY(), Control.player);
+			World.addLayer(f, 1);
+			f.startMoving(player.getAngle());
+			Core.score--;
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	private static void heal() {
