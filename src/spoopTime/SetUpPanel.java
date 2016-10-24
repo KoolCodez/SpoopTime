@@ -36,7 +36,7 @@ public class SetUpPanel extends JPanel {
 				Core.setupMode = false;
 			}
 		});
-		startButton.setBounds(175, 225, BUTTON_WIDTH, BUTTON_HEIGHT);
+		startButton.setBounds(175, 250, BUTTON_WIDTH, BUTTON_HEIGHT);
 		startButton.setBackground(Display.ORANGE);
 		startButton.setBorder(new LineBorder(Display.BORDER_ORANGE, 4));
 		add(startButton);
@@ -69,7 +69,7 @@ public class SetUpPanel extends JPanel {
 				t.start();
 			}
 		});
-		settingsButton.setBounds(175, 275, BUTTON_WIDTH, BUTTON_HEIGHT);
+		settingsButton.setBounds(175, 300, BUTTON_WIDTH, BUTTON_HEIGHT);
 		settingsButton.setBackground(Display.ORANGE);
 		settingsButton.setBorder(new LineBorder(Display.BORDER_ORANGE, 4));
 		add(settingsButton);
@@ -79,5 +79,6 @@ public class SetUpPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, 500, 500);
+		g.drawImage(TextureUtil.loadImage("SpoopTimeTitle.png", 500, 100, false), 0, 150, null);
 	}
 }

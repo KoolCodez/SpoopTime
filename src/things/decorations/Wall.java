@@ -1,9 +1,11 @@
 package things.decorations;
 
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RectangularShape;
 
+import spoopTime.Settings;
 import things.Thing;
 
 public class Wall extends Thing {
@@ -17,5 +19,14 @@ public class Wall extends Thing {
 		RectangularShape temp = new Rectangle2D.Double(e.getX(), e.getY(), 
 				e.getWidth(), e.getHeight());
 		return temp.intersects(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
+	}
+	
+	@Override
+	public boolean isWithinScreen(Point2D reference) {
+		if (Settings.fastWalls) {
+			return true;
+		} else {
+			return super.isWithinScreen(reference);
+		}
 	}
 }

@@ -97,12 +97,10 @@ public class DisplayPanel extends JPanel {
 	}
 	
 	private void drawBackGround(Graphics g) {
-		/*BufferedImage image = TextureUtil.loadImage("BackGround.jpg", 50, 50, true);
-		//g.drawImage(image, 0, 0, null);
-		TexturePaint tp = new TexturePaint(image, new Rectangle(50, 50));
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setPaint(tp);
-		g.fillRect((int) -Display.currentLoc.getX(), (int) -Display.currentLoc.getY(), 5000, 5000);*/
+		if (Settings.fastGrass) {
+			g.setColor(new Color(50, 125, 30));
+			g.fillRect(0, 0, (int) (1000 * Display.SCALE), (int) (1000 * Display.SCALE));
+		}
 	}
 	
 	private void drawThings(Graphics g) {

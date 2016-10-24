@@ -62,7 +62,7 @@ public class SoundUtil {
 		URL resource = SoundUtil.class.getResource("/Resources/Sounds/" + url);
 		Media song = new Media(resource.toExternalForm());
 		player = new MediaPlayer(song);
-		player.setVolume(.5);
+		player.setVolume(.1);
 		player.play();
 		player.setOnEndOfMedia(new Runnable() {
 			@Override

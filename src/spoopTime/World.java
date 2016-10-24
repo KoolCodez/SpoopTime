@@ -65,12 +65,14 @@ public class World {
 	}
 	
 	public static void createGrounds() {
-		int startingX, startingY;
-		startingX = -size / 2;
-		startingY = -size / 2;
-		for (int i = 0; i < size; i+= Grass.SIZE) {
-			for (int j = 0; j < size; j+= Grass.SIZE) {
-				layers[0].things.add(new Grass(startingX + i, startingY + j));
+		if (!Settings.fastGrass) {
+			int startingX, startingY;
+			startingX = -size / 2;
+			startingY = -size / 2;
+			for (int i = 0; i < size; i += Grass.SIZE) {
+				for (int j = 0; j < size; j += Grass.SIZE) {
+					layers[0].things.add(new Grass(startingX + i, startingY + j));
+				}
 			}
 		}
 	}
@@ -87,12 +89,23 @@ public class World {
 		int startingX, startingY;
 		startingX = -size / 2;
 		startingY = -size / 2;
-		makeWall(startingX, startingY, 50, size); //leftWall
-		makeWall(startingX + size, startingY, 50, size); //rightWall
-		makeWall(startingX, startingY, size, 50); //topWall
-		makeWall(startingX, startingY + size, size, 50); //bottomWall
-		Wall patch = new Wall(startingX + size, startingY + size, 50, 50);
-		addLayer(patch, 1);
+		if (Settings.fastWalls) {
+			Wall leftWall = new Wall(startingX, startingY, 20, size/1.38);
+			addLayer(leftWall, 1);
+			Wall upWall = new Wall(startingX, startingY, size/1.38, 20);
+			addLayer(upWall, 1);
+			Wall rightWall = new Wall(startingX + size, startingY, 20, size/1.38);
+			addLayer(rightWall, 1);
+			Wall downWall = new Wall(startingX, startingY + size, size/1.38, 20);
+			addLayer(downWall, 1);
+		} else {
+			makeWall(startingX, startingY, 50, size); // leftWall
+			makeWall(startingX + size, startingY, 50, size); // rightWall
+			makeWall(startingX, startingY, size, 50); // topWall
+			makeWall(startingX, startingY + size, size, 50); // bottomWall
+			Wall patch = new Wall(startingX + size, startingY + size, 50, 50);
+			addLayer(patch, 1);
+		}
 	}
 	public static void makeWall(double x, double y, double width, double height) {
 		for (int row = 0; row < width; row += 50) {
