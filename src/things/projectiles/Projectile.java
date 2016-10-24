@@ -35,7 +35,7 @@ public class Projectile extends Thing {
 	}
 
 	private static final double SPEED_DECREMENT = .1;
-	private static final double MIN_SPEED = 2;
+	private static final double MIN_SPEED = 4;
 
 	private void createThread() {
 		Projectile p = this;

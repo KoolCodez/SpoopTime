@@ -8,19 +8,20 @@ import things.Thing;
 import things.entities.Entity;
 
 public class ShockWave extends Projectile {
-	private static final double WIDTH = 50;
+	private static final int WAVE_SPEED = 15;
+	private static final double WIDTH = 100;
 	private static final double HEIGHT = 50;
 	private ArrayList<Entity> hitList;
 
 	public ShockWave(double x, double y, Thing shooter) {
-		super(x, y, WIDTH, HEIGHT, "FireBall.png", shooter);
+		super(x, y, WIDTH, HEIGHT, "ShockWave.png", shooter);
 		impactDamage = 1;
 		hitList = new ArrayList<Entity>();
 		hitList.add((Entity) shooter);
 	}
 	
 	public void startMoving(double direction) {
-		super.startMoving(direction, 10);
+		super.startMoving(direction, WAVE_SPEED);
 	}
 	
 	@Override
