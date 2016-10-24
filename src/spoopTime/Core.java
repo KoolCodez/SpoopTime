@@ -10,7 +10,6 @@ public class Core {
 	private static Control control;
 	public static boolean setupMode = false;
 	public static boolean gamingMode = false;
-	public static double difficulty = 60;
 	public static int score = 0;
 	
 	private static String[] playList = {"SpoopySkeletons.mp3", "MonsterMash.mp3"};
@@ -31,28 +30,28 @@ public class Core {
 		setUpWorld();
 		populateWorld();
 	}
-	
+	public static JFrame setupFrame;
 	private static void setupMode() {
 		setupMode = true;
 		System.out.println("beginning setup");
-		JFrame temp = new JFrame("Setup");
-		temp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		temp.setSize(516, 538);
-		temp.setVisible(true);
+		setupFrame = new JFrame("Setup");
+		setupFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setupFrame.setSize(516, 538);
+		setupFrame.setVisible(true);
 		SetUpPanel panel = new SetUpPanel();
-		temp.add(panel);
+		setupFrame.add(panel);
 		while (setupMode) {
-			temp.revalidate();
-			temp.repaint();
+			setupFrame.revalidate();
+			setupFrame.repaint();
 			try {
 				Thread.sleep(Display.MILLISECONDS_TO_SLEEP);
-				//System.out.println(temp);
+				//System.out.println(setupFrame);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		temp.setVisible(false);
+		setupFrame.setVisible(false);
 		System.out.println("ending set up");
 	}
 	

@@ -105,7 +105,8 @@ public class World {
 	
 	public static void createGraves(double ratioPerSquareThousand) {
 		double squareThousands = (size / 1000) * (size / 1000);
-		totalGraves = (int) (ratioPerSquareThousand * squareThousands * Core.difficulty / 20);
+		totalGraves = (int) (ratioPerSquareThousand * squareThousands
+				* Settings.difficulty / 20);
 		System.out.println(squareThousands);
 		System.out.println(totalGraves);
 		for (int i = 0; i < totalGraves; i++) {

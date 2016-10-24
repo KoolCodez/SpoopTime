@@ -1,6 +1,7 @@
 package things.spawners;
 
 import spoopTime.Core;
+import spoopTime.Settings;
 import spoopTime.World;
 import things.decorations.DeadGrave;
 import things.entities.Entity;
@@ -31,7 +32,7 @@ public class Spawner extends Entity {
 			public void run() {
 				while (health > 0) {
 					double randomTicks = (Math.random() * DIFFICULTY_CONSTANT * (World.getTotalGraves() + level*2));
-					if (randomTicks < Core.difficulty &&
+					if (randomTicks < Settings.difficulty &&
 							World.layers[1].things.size() <= MAX_SPAWN) {
 						spawn();
 					}

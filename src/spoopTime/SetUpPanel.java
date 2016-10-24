@@ -22,31 +22,9 @@ public class SetUpPanel extends JPanel {
 		createControls();
 	}
 	
-	@Override
-	public void paintComponent(Graphics g) {
-		g.setColor(Color.black);
-		g.fillRect(0, 0, 500, 500);
-		g.setColor(Display.ORANGE);
-		g.drawString("DIFFICULTY: " + Core.difficulty, 183, 300);
-		drawMoons(g);
-		g.setColor(Display.ORANGE);
-		g.drawString("WORLD SIZE: " + World.getSize(), 183, 375);
-		g.drawString("WINDOW SIZE: " + Display.SCALE * 1000, 183, 450);
-	}
-	
-	private void drawMoons(Graphics g) {
-		g.setColor(Color.white);
-		g.fillOval(325, 310, 25, 25);
-		g.fillOval(150, 310, 25, 25);
-		g.setColor(Color.black);
-		g.fillOval(155, 310, 25, 25);
-	}
-	
 	private void createControls() {
 		createStartButton();
-		createDifficultySlider();
-		createSizeSlider();
-		createScaleSlider();
+		createSettingsButton();
 		
 	}
 	
@@ -64,50 +42,42 @@ public class SetUpPanel extends JPanel {
 		add(startButton);
 	}
 	
-	private void createDifficultySlider() {
-		JSlider diffSlider = new JSlider(10, 110);
-		diffSlider.setValue(60);
-		diffSlider.setBounds(175, 300, BUTTON_WIDTH, BUTTON_HEIGHT);
-		diffSlider.setBackground(Color.black);
-		add(diffSlider);
-		diffSlider.addChangeListener(new ChangeListener() {
-
+	private void createSettingsButton() {
+		JButton settingsButton = new JButton("Settings");
+		JPanel panel = this;
+		settingsButton.addActionListener(new ActionListener() {
 			@Override
-			public void stateChanged(ChangeEvent e) {
-				Core.difficulty = diffSlider.getValue();
-				
+			public void actionPerformed(ActionEvent e) {
+				panel.setVisible(false);
+				JPanel settingsPanel = new SettingsPanel();
+				Core.setupFrame.add(settingsPanel);
+				Thread t = new Thread() {
+					@Override
+					public void run() {
+						synchronized (settingsPanel) {
+							try {
+								settingsPanel.wait();
+							} catch (InterruptedException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+						Core.setupFrame.remove(settingsPanel);
+						panel.setVisible(true);
+					}
+				};
+				t.start();
 			}
-			
 		});
-		diffSlider.setForeground(Color.ORANGE);
+		settingsButton.setBounds(175, 275, BUTTON_WIDTH, BUTTON_HEIGHT);
+		settingsButton.setBackground(Display.ORANGE);
+		settingsButton.setBorder(new LineBorder(Display.BORDER_ORANGE, 4));
+		add(settingsButton);
 	}
 	
-	private void createSizeSlider() {
-		JSlider sizeSlider = new JSlider(1000, 6000);
-		sizeSlider.setBounds(175, 375, BUTTON_WIDTH, BUTTON_HEIGHT);
-		sizeSlider.setBackground(Color.black);
-		add(sizeSlider);
-		sizeSlider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				World.setSize(sizeSlider.getValue());
-			}
-			
-		});
-		sizeSlider.setForeground(Color.ORANGE);
+	@Override
+	public void paintComponent(Graphics g) {
+		g.setColor(Color.black);
+		g.fillRect(0, 0, 500, 500);
 	}
-	
-	private void createScaleSlider() {
-		JSlider scaleSlider = new JSlider(100, 2000);
-		scaleSlider.setBounds(175, 450, BUTTON_WIDTH, BUTTON_HEIGHT);
-		scaleSlider.setBackground(Color.black);
-		add(scaleSlider);
-		scaleSlider.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				Display.SCALE = scaleSlider.getValue() / 1000.0;
-			}
-		});
-	}
-
 }
