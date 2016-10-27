@@ -17,9 +17,8 @@ import javax.swing.ImageIcon;
 
 public class TextureUtil {
 	
-	public static Image compileImage(ArrayList<Image> images) {
-		int scaled100 = (int) (100 * Display.SCALE);
-		BufferedImage compiledImage = new BufferedImage(scaled100, scaled100, BufferedImage.TYPE_INT_ARGB);
+	public static BufferedImage compileImage(ArrayList<Image> images, int size) {
+		BufferedImage compiledImage = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
 		Graphics g = compiledImage.createGraphics();
 		for (int i = 0; i < images.size(); i++) {
 			g.drawImage(images.get(i), 0, 0, null);

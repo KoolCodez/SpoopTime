@@ -12,6 +12,7 @@ import things.Thing;
 import things.decorations.DeadGrave;
 import things.decorations.Dirt;
 import things.decorations.Grass;
+import things.decorations.Tree;
 import things.decorations.Wall;
 import things.entities.Entity;
 import things.entities.NPC;
@@ -77,6 +78,21 @@ public class World {
 		}
 	}
 	
+	public static void createTrees() {
+		if (!Settings.fastGrass) {
+			double squareThousands = (size / 1000) * (size / 1000);
+			int total = (int) squareThousands;
+			//System.out.println(squareThousands);
+			//System.out.println(totalGraves);
+			for (int i = 0; i < total; i++) {
+				double x = findRandomLoc();
+				double y = findRandomLoc();
+				Thing tree = new Tree(x - 20, y);
+				World.addLayer(tree, 2);
+			}
+		}
+	}
+	
 	public static void setSize(int s) {
 		size = s;
 	}
@@ -120,8 +136,8 @@ public class World {
 		double squareThousands = (size / 1000) * (size / 1000);
 		totalGraves = (int) (ratioPerSquareThousand * squareThousands
 				* Settings.difficulty / 20);
-		System.out.println(squareThousands);
-		System.out.println(totalGraves);
+		//System.out.println(squareThousands);
+		//System.out.println(totalGraves);
 		for (int i = 0; i < totalGraves; i++) {
 			double x = findRandomLoc();
 			double y = findRandomLoc();

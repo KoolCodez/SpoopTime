@@ -65,6 +65,7 @@ public class Core {
 	private static void setUpWorld() {
 		gamingMode = true;
 		World.createGrounds();
+		World.createTrees();
 		World.createWalls();
 		
 	}
