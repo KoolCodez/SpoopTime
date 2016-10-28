@@ -26,8 +26,10 @@ public class Core {
 	}
 	
 	public static void reset() {
-		World.resetWorld();
-		setUpWorld();
+		//World.resetWorld();
+		//setUpWorld();
+		gamingMode = true;
+		World.clearEnts();
 		populateWorld();
 	}
 	public static JFrame setupFrame;

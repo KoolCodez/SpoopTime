@@ -66,13 +66,17 @@ public class DisplayPanel extends JPanel {
 		restartButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				gameOverMode = false;
-				Core.reset();
+				
+				
 				thisPanel.remove(endButton);
 				thisPanel.remove(restartButton);
 				synchronized (thisPanel) {
 					thisPanel.notifyAll();
 				}
+				Core.reset();
+				gameOverMode = false;
+				Core.score = 0;
+				
 			}
 		});
 		restartButton.setBounds(scaled(425), scaled(475), 

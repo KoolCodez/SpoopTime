@@ -2,7 +2,14 @@ package spoopTime;
 
 import java.awt.Color;
 import java.awt.geom.Point2D;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.net.URL;
 import java.util.ConcurrentModificationException;
+import java.util.Scanner;
 
 public class Display extends Thread {
 	public static Point2D currentLoc = new Point2D.Double(0, 0);
@@ -69,7 +76,10 @@ public class Display extends Thread {
 	
 	
 	private void runGameOver() {
+		//highscore();
 		panel.gameOver();
+		Core.frame.revalidate();
+		Core.frame.repaint();
 		synchronized (panel) {
 			try {
 				panel.wait();
@@ -78,7 +88,32 @@ public class Display extends Thread {
 				e.printStackTrace();
 			}
 		}
+		Core.frame.revalidate();
+		Core.frame.repaint();
 	}
 	
+	private void highscore() {
+		File file = new File("C:/users/Nikolas Untoten/highscore.txt");
+		Scanner input = null;
+		PrintStream output = null;
+		try {
+			output = new PrintStream(file);
+			input = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int last = 0;
+		while (input.hasNextInt()) {
+			last = input.nextInt();
+			input.nextLine();
+		}
 	
+		if (last < Core.score) {
+			output.println(Core.score);
+			System.out.println("1");
+		} else {
+			System.out.println("2");
+		}
+	}
 }

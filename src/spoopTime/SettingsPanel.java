@@ -23,6 +23,7 @@ public class SettingsPanel extends JPanel {
 	private JButton back;
 	private JCheckBox fastGrass;
 	private JCheckBox fastWalls;
+	private JCheckBox sound;
 	
 	public SettingsPanel() {
 		setLayout(null);
@@ -31,12 +32,13 @@ public class SettingsPanel extends JPanel {
 		createWindowSizeSlider();
 		createFastGrassBox();
 		createFastWallsBox();
+		createSoundBox();
 		createBackButton();
 	}
 	
 	private void createDifficultySlider() {
 		difficulty = new JSlider(10, 110);
-		difficulty.setValue(60);
+		difficulty.setValue((int) Settings.difficulty);
 		difficulty.setBounds(175, 50, BUTTON_WIDTH, BUTTON_HEIGHT);
 		difficulty.setBackground(Color.black);
 		difficulty.setForeground(Color.ORANGE);
@@ -54,6 +56,7 @@ public class SettingsPanel extends JPanel {
 	
 	private void createWorldSizeSlider() {
 		worldSize = new JSlider(1000, 6000);
+		worldSize.setValue(World.getSize());
 		worldSize.setBounds(175, 125, BUTTON_WIDTH, BUTTON_HEIGHT);
 		worldSize.setBackground(Color.black);
 		worldSize.setForeground(Color.ORANGE);
@@ -69,6 +72,7 @@ public class SettingsPanel extends JPanel {
 	
 	private void createWindowSizeSlider() {
 		windowSize = new JSlider(100, 2000);
+		windowSize.setValue((int) (Display.SCALE * 1000));
 		windowSize.setBounds(175, 200, BUTTON_WIDTH, BUTTON_HEIGHT);
 		windowSize.setBackground(Color.black);
 		windowSize.addChangeListener(new ChangeListener() {
@@ -99,6 +103,7 @@ public class SettingsPanel extends JPanel {
 	
 	private void createFastGrassBox() {
 		fastGrass = new JCheckBox("Fast Grass");
+		fastGrass.setSelected(Settings.fastGrass);
 		fastGrass.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -115,6 +120,7 @@ public class SettingsPanel extends JPanel {
 	
 	private void createFastWallsBox() {
 		fastWalls = new JCheckBox("Fast Walls");
+		fastWalls.setSelected(Settings.fastWalls);
 		fastWalls.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -127,6 +133,23 @@ public class SettingsPanel extends JPanel {
 		fastWalls.setForeground(Display.ORANGE);
 		fastWalls.setBorder(new LineBorder(Display.BORDER_ORANGE, 4));
 		add(fastWalls);
+	}
+	
+	private void createSoundBox() {
+		sound = new JCheckBox("Sound");
+		sound.setSelected(Settings.sound);
+		sound.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Settings.sound = sound.isSelected();
+			}
+		});
+		
+		sound.setBounds(175, 350, BUTTON_WIDTH, BUTTON_HEIGHT);
+		sound.setBackground(Color.BLACK);
+		sound.setForeground(Display.ORANGE);
+		sound.setBorder(new LineBorder(Display.BORDER_ORANGE, 4));
+		add(sound);
 	}
 	
 	@Override

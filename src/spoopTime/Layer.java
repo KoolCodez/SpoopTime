@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import things.Thing;
+import things.decorations.DeadGrave;
+import things.decorations.Dirt;
 import things.entities.Entity;
 import things.spawners.Spawner;
 
@@ -31,7 +33,7 @@ public class Layer {
 	
 	public void clearEnts() {
 		for (Thing thing : things) {
-			if (thing instanceof Entity || thing instanceof Spawner) {
+			if (thing instanceof Entity || thing instanceof DeadGrave || thing instanceof Dirt) {
 				things.remove(thing);
 			}
 		}

@@ -56,13 +56,13 @@ public class SoundUtil {
 	}
 
 	private static MediaPlayer player;
-
+	static boolean waiting = true;
 	public static void playMP3(String url) {
 		JFXPanel soundPanel = new JFXPanel();
 		URL resource = SoundUtil.class.getResource("/Resources/Sounds/" + url);
 		Media song = new Media(resource.toExternalForm());
 		player = new MediaPlayer(song);
-		player.setVolume(.1);
+		player.setVolume(.1 * (Settings.sound ? 1:0));
 		player.play();
 		player.setOnEndOfMedia(new Runnable() {
 			@Override
@@ -72,6 +72,27 @@ public class SoundUtil {
 				}
 			}
 		});
+		
+		Thread soundChecker = new Thread() {
+			@Override
+			public void run() {
+				while (waiting) {
+					if (Settings.sound && player.getStatus().equals(MediaPlayer.Status.PAUSED)) {
+						player.play();
+					} else if(!Settings.sound && player.getStatus().equals(MediaPlayer.Status.PLAYING)) {
+						player.pause();
+					}
+					
+					try {
+						sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		soundChecker.start();
 		synchronized (player) {
 			try {
 				player.wait();
@@ -80,6 +101,7 @@ public class SoundUtil {
 				e.printStackTrace();
 			}
 		}
+		waiting = false;
 		System.out.println("done");
 	}
 
@@ -92,6 +114,7 @@ public class SoundUtil {
 					Clip clip = startClip(url);
 					clip.addLineListener(repeatListener);
 					waitForEnd();
+					waiting = false;
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -134,8 +157,24 @@ public class SoundUtil {
 			InputStream buffStream = new BufferedInputStream(inStream);
 			AudioInputStream inputStream = AudioSystem.getAudioInputStream(buffStream);
 			clip.open(inputStream);
+			waiting = true;
 			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(-30.0f);
+			
+			Thread soundChecker = new Thread() {
+				@Override
+				public void run() {
+					while (waiting) {
+						gainControl.setValue(-30.0f * (Settings.sound ? 1:0));
+						try {
+							sleep(500);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			};
+			soundChecker.start();
 			clip.start();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
