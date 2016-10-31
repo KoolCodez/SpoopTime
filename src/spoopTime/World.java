@@ -34,7 +34,9 @@ public class World {
 		thing.layer = layer;
 		if (!exempt(thing)) {
 			while (!legalMove(0, 0, thing)) {
-				thing.changePos(10, 10);
+				int rand1 = (int) (Math.random() * 2) - 1;
+				int rand2 = (int) (Math.random() * 2) - 1;
+				thing.changePos(10*rand1, 10*rand2);
 			}
 		}
 	}
