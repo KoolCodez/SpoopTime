@@ -60,7 +60,7 @@ public class Spawner extends Entity {
 	public void kill() {
 		health = 0;
 		Core.score += value;
-		World.addLayer(new DeadGrave(getLoc().getX(), getLoc().getY(), this), layer);
+		World.addLayer(new DeadGrave(getLoc().getX(), getLoc().getY(), this), layer - 1);
 		World.destroy(this);
 	}
 	
