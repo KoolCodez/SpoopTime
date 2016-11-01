@@ -12,6 +12,7 @@ import things.Thing;
 import things.decorations.DeadGrave;
 import things.decorations.Dirt;
 import things.decorations.Grass;
+import things.decorations.Pumpkin;
 import things.decorations.Tree;
 import things.decorations.Wall;
 import things.entities.Entity;
@@ -89,8 +90,8 @@ public class World {
 			for (int i = 0; i < total; i++) {
 				double x = findRandomLoc();
 				double y = findRandomLoc();
-				Thing tree = new Tree(x - 20, y);
-				World.addLayer(tree, 2);
+				Thing tree = new Pumpkin(x - 20, y);
+				World.addLayer(tree, 1);
 			}
 		}
 	}
