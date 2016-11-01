@@ -106,7 +106,7 @@ public class World {
 	public static void createPumpkins() {
 		if (!Settings.fastGrass) {
 			double squareThousands = (size / 1000) * (size / 1000);
-			int total = (int) squareThousands * 3;
+			int total = (int) squareThousands * 2;
 			//System.out.println(squareThousands);
 			//System.out.println(totalGraves);
 			for (int i = 0; i < total; i++) {
