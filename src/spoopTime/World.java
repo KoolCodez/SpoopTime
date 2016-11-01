@@ -10,6 +10,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import things.Thing;
 import things.decorations.DeadGrave;
+import things.decorations.DeadPumpkin;
 import things.decorations.Dirt;
 import things.decorations.Grass;
 import things.decorations.Pumpkin;
@@ -55,6 +56,12 @@ public class World {
 		if (thing instanceof Projectile) {
 			return true;
 		}
+		if (thing instanceof Pumpkin) {
+			return true;
+		}
+		if (thing instanceof DeadPumpkin) {
+			return true;
+		}
 		return false;
 	}
 
@@ -85,6 +92,21 @@ public class World {
 		if (!Settings.fastGrass) {
 			double squareThousands = (size / 1000) * (size / 1000);
 			int total = (int) squareThousands;
+			//System.out.println(squareThousands);
+			//System.out.println(totalGraves);
+			for (int i = 0; i < total; i++) {
+				double x = findRandomLoc();
+				double y = findRandomLoc();
+				Thing tree = new Tree(x - 20, y);
+				World.addLayer(tree, 2);
+			}
+		}
+	}
+	
+	public static void createPumpkins() {
+		if (!Settings.fastGrass) {
+			double squareThousands = (size / 1000) * (size / 1000);
+			int total = (int) squareThousands * 3;
 			//System.out.println(squareThousands);
 			//System.out.println(totalGraves);
 			for (int i = 0; i < total; i++) {

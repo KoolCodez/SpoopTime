@@ -68,6 +68,7 @@ public class Core {
 		gamingMode = true;
 		World.createGrounds();
 		World.createTrees();
+		World.createPumpkins();
 		World.createWalls();
 		
 	}
